@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1Phone</title>
-    <link rel="icon" href="static/images/icon.svg" />
+    <link href="static/images/icon.svg" rel="icon" />
 
     <!-- Import fonts and icons -->
     <link
@@ -21,7 +21,7 @@
     />
 
     <!-- Import stylesheets -->
-    <link href="static/styles/reset.css" rel=" stylesheet" />
+    <link href="static/styles/reset.css" rel="stylesheet" />
     <link href="static/styles/styles.css" rel="stylesheet" />
 
     <!-- Import scripts -->
@@ -35,31 +35,45 @@
     ></script>
   </head>
   <body>
+    <section class="modal">
+      <div class="modal-subscribe">
+        <p>
+          Olá, obrigado pelo interesse em nosso projeto! Este é um projeto
+          realizado por propósitos puramente acadêmicos, portanto, o produto
+          1Phone e seu serviço de inscrição são apenas conceitos, e não existem.
+        </p>
+      </div>
+      <video
+        class="modal-video"
+        src="static/videos/video.mp4"
+        controls="true"
+      ></video>
+    </section>
     <header>
       <a class="logo-1phone" href="index.html">
         <img src="static/images/icon.svg" alt="1Phone logo." />
       </a>
-      <div class="tab-container">
-        <a class="tab tab-active" href>Visão Geral</a>
-      </div>
       <div class="subscribe-container">
         <p class="subscribe-text">
           A partir de R$ 99/mês<br /><small
             >*mais uma taxa inicial de R$ 299</small
           >
         </p>
-        <a class="subscribe-button" href>Inscrever-se</a>
+        <btn class="subscribe-button">Inscrever-se</btn>
       </div>
     </header>
     <section>
       <h1 class="rellax" data-rellax-speed="-3">1Phone</h1>
       <h3 class="rellax" data-rellax-speed="-3">O smartphone sustentável.</h3>
       <div class="phone-container">
-        <div
+        <span
           class="gradient gradient-purple rellax"
           data-rellax-speed="1"
-        ></div>
-        <div class="gradient gradient-green rellax" data-rellax-speed="3"></div>
+        ></span>
+        <span
+          class="gradient gradient-green rellax"
+          data-rellax-speed="3"
+        ></span>
         <img
           class="phone-back rellax"
           data-rellax-speed="2"
@@ -73,7 +87,7 @@
           alt="Two stacked 1Phones. Front side."
         />
       </div>
-      <a class="video-button" href>Veja o Vídeo</a>
+      <btn class="video-button">Veja o Vídeo</btn>
     </section>
     <section>
       <span class="material-icons icon-eco">eco</span>
@@ -103,12 +117,13 @@
       <h2>Design modular</h2>
       <h3>Troque, repare, atualize.</h3>
       <p class="module-section-text">
-        Uma peça quebrou? Precisa de mais memória? Talvez uma tela nova?<br />Prezamos
-        pelo direito ao reparo, então todos os nossos produtos são compostos por
-        módulos facilmente trocáveis, e acompanham os diagramas e ferramentas
-        necessárias para seu reparo e manutenção. Sem obsolescência planejada
-        por aqui. Além disso, com ambos hardware e software de código aberto,
-        trabalhamos ao seu lado para desenvolver um produto melhor para todos.
+        Uma peça quebrou? Precisa de mais memória? Talvez uma tela nova?<br />
+        Prezamos pelo direito ao reparo, então todos os nossos produtos são
+        compostos por módulos facilmente trocáveis, e acompanham os diagramas e
+        ferramentas necessárias para seu reparo e manutenção. Sem obsolescência
+        planejada por aqui. Além disso, com ambos hardware e software de código
+        aberto, trabalhamos ao seu lado para desenvolver um produto melhor para
+        todos.
       </p>
     </section>
     <section>
