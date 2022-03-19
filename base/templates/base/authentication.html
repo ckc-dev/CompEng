@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block title %}
+  {% if page == 'login' %}Login{% else %}Register{% endif %}
+{% endblock %}
+
+{% block body %}
+  <p><a href="{{ request.META.HTTP_REFERER }}">Back</a></p>
+  <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+      {% if page == 'login' %}Login{% else %}Register{% endif %}
+    </button>
+  </form>
+  <p>
+    {% if page == 'login' %}
+      Don't have an account yet? <a href="{% url 'base:register' %}">Register here.</a>
+    {% else %}
+      Already have an account? <a href="{% url 'base:login' %}">Login here.</a>
+    {% endif %}
+  </p>
+{% endblock %}

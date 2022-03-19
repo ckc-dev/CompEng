@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+class userAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'cpf_clean')
+
+
+admin.site.register(models.User, userAdmin)
