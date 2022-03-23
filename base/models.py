@@ -11,6 +11,8 @@ class User(AbstractUser):
     cpf_clean = models.IntegerField()
 
     def save(self, *args, **kwargs):
+        # Temporary fix, make sure to address this later.
+        self.username = self.email
         self.cpf_clean = int(re.sub(r'\D', '', self.cpf))
         super(User, self).save(*args, **kwargs)
 
