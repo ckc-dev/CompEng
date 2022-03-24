@@ -4,20 +4,33 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class RegisterForm(UserCreationForm):
-    cpf = forms.CharField(required=True, min_length=11, max_length=14)
-
     class Meta:
         model = get_user_model()
-        fields = ("name", "email", "cpf", "password1", "password2")
+        fields = (
+            'name',
+            'email',
+            'cpf',
+            'is_business',
+            'cnpj',
+            'password1',
+            'password2'
+        )
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
         self.fields['cpf'].label = 'CPF'
+        self.fields['cnpj'].label = 'CNPJ'
 
-    def save(self, *args, **kwargs):
-        user = super().save(*args, **kwargs, commit=False)
-        user.email = self.cleaned_data["email"]
-        user.save()
+    def clean(self):
+        data = self.cleaned_data
+        is_business = data.get('is_business')
+        cpf = data.get('cpf')
+        cnpj = data.get('cnpj')
 
-        return user
+        if is_business and not cnpj:
+            self.add_error('cnpj', 'Please insert your CNPJ.')
+        elif not is_business and not cpf:
+            self.add_error('cpf', 'Please insert your CPF.')
+        else:
+            return data

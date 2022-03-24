@@ -1,5 +1,6 @@
 """Views for base app."""
 
+from django.db import IntegrityError
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
@@ -38,10 +39,13 @@ def user_register(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            user = form.save()
+            try:
+                user = form.save()
 
-            login(request, user)
-            return redirect('base:index')
+                login(request, user)
+                return redirect('base:index')
+            except IntegrityError:
+                form.add_error(None, 'This user is already registered.')
 
     context = {'form': form}
 
