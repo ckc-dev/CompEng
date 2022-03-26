@@ -1,8 +1,8 @@
 """Views for base app."""
 
-from django.db import IntegrityError
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
 from . import forms
@@ -55,3 +55,19 @@ def user_register(request):
 def user_logout(request):
     logout(request)
     return redirect('base:index')
+
+
+def settings(request):
+    return render(request, 'base/settings.html')
+
+
+def about_us(request):
+    return render(request, 'base/about-us.html')
+
+
+def terms_of_service(request):
+    return render(request, 'base/terms-of-service.html')
+
+
+def privacy_policy(request):
+    return render(request, 'base/privacy-policy.html')
