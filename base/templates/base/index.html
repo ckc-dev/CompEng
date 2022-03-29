@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+  <h1>Levantamento de Requisitos - Grupo 3</h1>
+  {% bootstrap_messages %}
+  <form class="my-3" method="post">
+    {% csrf_token %}
+    {% bootstrap_field form.author %}
+    <div class="mb-3">
+      {% bootstrap_label form.reference.label %}
+      <select class="form-select" id="id_reference" name="reference" required>
+        <option value selected>---------</option>
+        {% for r in references %}
+          <option title="{{ r }}" value="{{ r.pk }}" {% if not r.is_available %} disabled{% endif %}>
+            {{ r }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% bootstrap_field form.name %}
+    {% bootstrap_field form.category %}
+    {% bootstrap_field form.priority %}
+    {% bootstrap_field form.version %}
+    {% bootstrap_field form.description %}
+    {% bootstrap_button button_type="submit" content="Enviar" %}
+  </form>
+  <hr />
+  <h2 class="mb-3">Requisitos já levantados:</h2>
+  <div
+    class="row row-cols-1 row-cols-md-2 g-4"
+    data-masonry='{"percentPosition": true }'
+  >
+    {% for r in requirements %}
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ r.type }} | <strong>{{ r.name }}</strong>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ r.category }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{ r.priority }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ r.date|date:'d/m/Y' }} (V{{ r.version }})
+          </h6>
+          <p class="card-text">{{ r.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
