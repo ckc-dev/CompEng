@@ -8,7 +8,7 @@ REQUIREMENT_TYPES = [
 ]
 
 
-class Available(models.Model):
+class Reference(models.Model):
     is_available = models.BooleanField(default=True)
     name = models.CharField(max_length=256)
     section = models.CharField(max_length=64)
@@ -25,7 +25,7 @@ class Available(models.Model):
 class Requirement(models.Model):
     author = models.CharField(max_length=64)
     reference = models.OneToOneField(
-        Available,
+        Reference,
         on_delete=models.CASCADE,
         related_name='requirement'
     )

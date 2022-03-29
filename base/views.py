@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import HttpResponse, render
 
 from . import forms, models
 
 
 def index(request):
-    references = models.Available.objects.all().order_by('pk')
+    references = models.Reference.objects.all().order_by('pk')
     requirements = models.Requirement.objects.all()
     form = forms.RequirementForm(request.POST or None)
     context = {

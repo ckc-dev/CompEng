@@ -12,7 +12,11 @@
       <select class="form-select" id="id_reference" name="reference" required>
         <option value selected>---------</option>
         {% for r in references %}
-          <option title="{{ r }}" value="{{ r.pk }}" {% if not r.is_available %} disabled{% endif %}>
+          <option
+            title="{{ r }}"
+            value="{{ r.pk }}"
+            {% if not r.is_available %} disabled{% endif %}
+          >
             {{ r }}
           </option>
         {% endfor %}
@@ -32,21 +36,21 @@
     data-masonry='{"percentPosition": true }'
   >
     {% for r in requirements %}
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">
-            {{ r.type }} | <strong>{{ r.name }}</strong>
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ r.category }}</h6>
-          <h6 class="card-subtitle mb-2 text-muted">{{ r.priority }}</h6>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ r.date|date:'d/m/Y' }} (V{{ r.version }})
-          </h6>
-          <p class="card-text">{{ r.description }}</p>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ r.type }} | <strong>{{ r.name }}</strong>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ r.category }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ r.priority }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ r.date|date:'d/m/Y' }} (V{{ r.version }})
+            </h6>
+            <p class="card-text">{{ r.description }}</p>
+          </div>
         </div>
       </div>
-    </div>
     {% endfor %}
   </div>
 {% endblock %}
