@@ -11,7 +11,7 @@ REQUIREMENT_TYPES = [
 class Available(models.Model):
     is_available = models.BooleanField(default=True)
     name = models.CharField(max_length=256)
-    category = models.CharField(max_length=64)
+    section = models.CharField(max_length=64)
     type = models.CharField(
         max_length=4,
         choices=REQUIREMENT_TYPES,
@@ -19,7 +19,7 @@ class Available(models.Model):
     )
 
     def __str__(self):
-        return f'{self.category} | {self.name}'
+        return f'{self.section} | {self.name}'
 
 
 class Requirement(models.Model):
@@ -36,6 +36,7 @@ class Requirement(models.Model):
         choices=REQUIREMENT_TYPES,
         default=REQUIREMENT_TYPE_DEFAULT,
     )
+    section = models.CharField(max_length=64, null=True, blank=True)
     name = models.CharField(max_length=256)
     category = models.CharField(max_length=64)
     date = models.DateField(auto_now_add=True)
@@ -48,6 +49,7 @@ class Requirement(models.Model):
 
     def save(self, *args, **kwargs):
         self.type = self.reference.type
+        self.section = self.reference.section
         self.reference.is_available = False
         self.reference.save()
 
