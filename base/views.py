@@ -5,7 +5,7 @@ from . import forms, models
 
 
 def index(request):
-    references = models.Available.objects.all()
+    references = models.Available.objects.all().order_by('pk')
     requirements = models.Requirement.objects.all()
     form = forms.RequirementForm(request.POST or None)
     context = {
