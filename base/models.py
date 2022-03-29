@@ -10,7 +10,7 @@ REQUIREMENT_TYPES = [
 
 class Available(models.Model):
     is_available = models.BooleanField(default=True)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=256)
     category = models.CharField(max_length=64)
     type = models.CharField(
         max_length=4,
@@ -36,15 +36,15 @@ class Requirement(models.Model):
         choices=REQUIREMENT_TYPES,
         default=REQUIREMENT_TYPE_DEFAULT,
     )
-    name = models.CharField(max_length=128)
-    category = models.CharField(max_length=32)
+    name = models.CharField(max_length=256)
+    category = models.CharField(max_length=64)
     date = models.DateField(auto_now_add=True)
     version = models.IntegerField(default=1)
     priority = models.CharField(
-        max_length=32,
+        max_length=64,
         default=REQUIREMENT_PRIORITY_DEFAULT,
     )
-    description = models.TextField(max_length=8192)
+    description = models.TextField(max_length=16384)
 
     def save(self, *args, **kwargs):
         self.type = self.reference.type
