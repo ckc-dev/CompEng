@@ -30,3 +30,20 @@ def index(request):
             )
 
     return render(request, 'base/index.html', context)
+
+
+def latex(request):
+    requirements = models.Requirement.objects.all().order_by('section')
+    sections = set(requirements.values_list('section', flat=True))
+    string = ''
+
+    for s in sections:
+        string += f'\\section{{{s}}}'
+        for r in requirements:
+            if r.section != s:
+                break
+            string += r.to_latex()
+
+    context = {'string': string}
+
+    return render(request, 'base/latex.html', context)

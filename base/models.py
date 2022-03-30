@@ -23,11 +23,26 @@ class Reference(models.Model):
 
 
 class Requirement(models.Model):
+    LATEX_TEMPLATE = """
+    \\subsection{{RF-{pk}}}
+        \\paragraph{{Nome}}
+            \\subparagraph{{{name}}}
+        \\paragraph{{Categoria}}
+            \\subparagraph{{{category}}}
+        \\paragraph{{Data de criação}}
+            \\subparagraph{{{date}}}
+        \\paragraph{{Versão}}
+            \\subparagraph{{{version}}}
+        \\paragraph{{Prioridade}}
+            \\subparagraph{{{priority}}}
+        \\paragraph{{Descrição}}
+            \\subparagraph{{{description}}}"""
+
     author = models.CharField(max_length=64)
     reference = models.OneToOneField(
         Reference,
         on_delete=models.CASCADE,
-        related_name='requirement'
+        related_name='requirement',
     )
     type = models.CharField(
         max_length=4,
@@ -60,6 +75,17 @@ class Requirement(models.Model):
         self.reference.save()
 
         super(Requirement, self).delete(*args, **kwargs)
+
+    def to_latex(self):
+        return self.LATEX_TEMPLATE.format(
+            pk=str(self.pk).zfill(3),
+            name=self.name,
+            category=self.category,
+            date=self.date,
+            version=self.version,
+            priority=self.priority,
+            description=self.description,
+        )
 
     def __str__(self):
         return f'{self.author} - {self.type} (V{self.version}) | {self.name}'
