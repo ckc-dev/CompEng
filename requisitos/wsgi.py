@@ -1,5 +1,5 @@
 """
-WSGI config for requisitos project.
+WSGI configuration for requisitos project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

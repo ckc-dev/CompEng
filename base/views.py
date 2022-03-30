@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import render
 
 from . import forms, models
 
@@ -37,12 +37,12 @@ def latex(request):
     sections = set(requirements.values_list('section', flat=True))
     string = ''
 
-    for s in sections:
-        string += f'\\section{{{s}}}'
-        for r in requirements:
-            if r.section != s:
+    for section in sections:
+        string += f'\\section{{{section}}}'
+        for requirement in requirements:
+            if requirement.section != section:
                 break
-            string += r.to_latex()
+            string += requirement.to_latex()
 
     context = {'string': string}
 

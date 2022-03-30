@@ -15,7 +15,7 @@
           <option
             title="{{ r }}"
             value="{{ r.pk }}"
-            {% if not r.is_available %} disabled{% endif %}
+            {% if not r.is_available %}disabled{% endif %}
           >
             {{ r }}
           </option>
@@ -33,7 +33,7 @@
   <h2 class="mb-3">Requisitos já levantados:</h2>
   <div
     class="row row-cols-1 row-cols-md-2 g-4"
-    data-masonry='{"percentPosition": true }'
+    data-masonry="{'percentPosition': true }"
   >
     {% for r in requirements %}
       <div class="col">

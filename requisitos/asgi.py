@@ -1,5 +1,5 @@
 """
-ASGI config for requisitos project.
+ASGI configuration for requisitos project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
