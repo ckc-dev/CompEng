@@ -38,11 +38,15 @@ def latex(request):
     string = ''
 
     for section in sections:
+        requirement_id = 1
         string += f'\\section{{{section}}}'
+
         for requirement in requirements:
             if requirement.section != section:
-                break
-            string += requirement.to_latex()
+                continue
+            string += requirement.to_latex(requirement_id)
+            requirement_id += 1
+        string += "\n"
 
     context = {'string': string}
 
