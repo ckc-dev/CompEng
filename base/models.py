@@ -24,7 +24,7 @@ class Reference(models.Model):
 
 class Requirement(models.Model):
     LATEX_TEMPLATE = """
-    \\subsection{{RF-{id}}}
+    \\subsection{{{type}-{id}}}
         \\paragraph{{Nome}}
             \\subparagraph{{{name}}}
         \\paragraph{{Categoria}}
@@ -78,6 +78,7 @@ class Requirement(models.Model):
 
     def to_latex(self, id_):
         return self.LATEX_TEMPLATE.format(
+            type=self.type,
             id=str(id_).zfill(3),
             name=self.name,
             category=self.category,
