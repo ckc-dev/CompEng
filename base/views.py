@@ -38,14 +38,19 @@ def latex(request):
     string = ''
 
     for section in sections:
-        requirement_id = 1
+        functional_requirement_id = 1
+        non_functional_requirement_id = 1
         string += f'\\section{{{section}}}'
 
         for requirement in requirements:
             if requirement.section != section:
                 continue
-            string += requirement.to_latex(requirement_id)
-            requirement_id += 1
+            if requirement.type == 'RF':
+                string += requirement.to_latex(functional_requirement_id)
+                functional_requirement_id += 1
+            else:
+                string += requirement.to_latex(non_functional_requirement_id)
+                non_functional_requirement_id += 1
         string += "\n"
 
     context = {'string': string}
