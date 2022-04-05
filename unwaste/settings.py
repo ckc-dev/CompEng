@@ -11,11 +11,40 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import re
 from pathlib import Path
+
+# Get database credentials from Heroku's rotating URI.
+HEROKU_POSTGRESQL_URI_REGEX = re.compile(r"""
+    postgres:\/\/   # Match "postgres://" once.
+    (?P<username>   # CAPTURE GROUP "username" | Open capture group.
+        [^:]+       # Match any character that is not ":", between 1 and ∞
+                    # times.
+    )               # CAPTURE GROUP "username" | Close capture group.
+    :               # Match ":" once.
+    (?P<password>   # CAPTURE GROUP "password" | Open capture group.
+        [^@]+       # Match any character that is not "@", between 1 and ∞
+                    # times.
+    )               # CAPTURE GROUP "password" | Close capture group.
+    @               # Match "@" once.
+    (?P<host>       # CAPTURE GROUP "host" | Open capture group.
+        [^:]+       # Match any character that is not ":", between 1 and ∞
+                    # times.
+    )               # CAPTURE GROUP "host" | Close capture group.
+    :               # Match ":" once.
+    (?P<port>       # CAPTURE GROUP "port" | Open capture group.
+        \d{4}       # Match any character that is a digit, 4 times.
+    )               # CAPTURE GROUP "port" | Close capture group.
+    \/              # Match "/" once.
+    (?P<name>       # CAPTURE GROUP "name" | Open capture group.
+        .+          # Match any character, between 1 and ∞ times.
+    )               # CAPTURE GROUP "name" | Close capture group.""", re.VERBOSE)
+HEROKU_POSTGRESQL_URI = os.getenv('DATABASE_URL')
+MATCH = HEROKU_POSTGRESQL_URI_REGEX.fullmatch(HEROKU_POSTGRESQL_URI)
+DATABASE_CREDENTIALS = MATCH.groupdict()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -30,7 +59,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', os.getenv('APPLICATION_URL')]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +86,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates'
+            BASE_DIR / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,22 +105,20 @@ WSGI_APPLICATION = 'unwaste.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT'),
-        'USER': os.getenv('DATABASE_USERNAME'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'NAME': DATABASE_CREDENTIALS['name'],
+        'HOST': DATABASE_CREDENTIALS['host'],
+        'PORT': DATABASE_CREDENTIALS['port'],
+        'USER': DATABASE_CREDENTIALS['username'],
+        'PASSWORD': DATABASE_CREDENTIALS['password'],
     }
 }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -111,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -123,13 +148,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model.
