@@ -11,7 +11,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import re
 from pathlib import Path
+
+# Get database credentials from Heroku's rotating URI.
+HEROKU_DATABASE_URI = os.getenv('DATABASE_URL')
+HEROKU_POSTGRESQL_REGEX = re.compile(
+    r"postgres:\/\/(?P<username>.[^:]+):(?P<password>.[^@]+)@(?P<host>.[^:]+):(?P<port>\d{4})\/(?P<name>.+)")
+MATCH = HEROKU_POSTGRESQL_REGEX.fullmatch(HEROKU_DATABASE_URI)
+DATABASE_CREDENTIALS = MATCH.groupdict()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,11 +81,11 @@ WSGI_APPLICATION = 'requisitos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT'),
-        'USER': os.getenv('DATABASE_USERNAME'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'NAME': DATABASE_CREDENTIALS['name'],
+        'HOST': DATABASE_CREDENTIALS['host'],
+        'PORT': DATABASE_CREDENTIALS['port'],
+        'USER': DATABASE_CREDENTIALS['username'],
+        'PASSWORD': DATABASE_CREDENTIALS['password'],
     }
 }
 
