@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+}
+
+/* HEADER */
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 1rem;
+    background: #000;
+}
+
+header a{
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+#logoDesktop{
+    width: 50%;
+    height: 50%;
+    /* Gambiarra pra pintar o logo svg de branco */
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg) brightness(104%) contrast(102%);
+}
+
+#logoMobile{
+    display: none;
+    /* Gambiarra pra pintar o logo svg de branco */
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg) brightness(104%) contrast(102%);
+}
+
+#btn-menu{
+    display: none;
+}
+
+#menulist{
+    display: flex;
+    list-style: none;
+    gap: .5rem;
+}
+
+#menulist a{
+    color: #fff;
+    display: block;
+    padding: .5rem;
+}
+
+nav ul a:hover{
+    cursor: pointer;;
+}
+
+
+/* MEDIA QUERY */
+@media (max-width: 652px) {
+    #logoDesktop{
+        display: none;
+    }
+
+    #logoMobile{
+        display: block;
+        width: 20%;
+        height: 20%;
+    }
+
+    #btn-menu{
+        display: block;
+        border: none;
+        background: transparent;
+    }
+
+    header nav label{
+        display: flex;
+        flex-direction: column;
+        width: 50px;
+        cursor: pointer;
+    }
+
+    label span{
+        background: #fff;
+        border-radius: 10px;
+        height: 6px;
+        margin: 6px;
+    }
+
+    header label span:nth-of-type(1){
+        width: 100%;
+    }
+
+    header button label span:nth-of-type(2){
+        width: 100%;
+    }
+
+    header button label span:nth-of-type(3){
+        width: 100%;
+    }
+
+    #menulist{
+        display: none;
+        position: absolute;
+        width: 100%;
+        top: 70px;
+        right: 0;
+        background-color: #000;
+        height: calc(100% - 70px);
+        z-index: 1000;
+    }
+
+    #navbar.active #menulist{
+        display:block;
+    }
+
+    #menulist a{
+        padding: 1rem 0;
+        margin: 0 1rem;
+        border-bottom: 2px solid white;
+    }
+}
