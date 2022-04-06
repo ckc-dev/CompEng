@@ -1,9 +1,4 @@
-//Menu Button - Hamburger Menu
-const btnMenu = document.getElementById('btn-menu');
+const btnMenu = document.getElementById("btn-menu");
+const navbar = document.getElementById("navbar");
 
-function toggleMenu(event) {
-    const navbar = document.getElementById('navbar');
-    navbar.classList.toggle('active')
-}
-
-btnMenu.addEventListener('click', toggleMenu);
+btnMenu.onclick = () => navbar.classList.toggle("active");
