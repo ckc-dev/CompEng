@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>UnWaste</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="header">
+        <a href="" id="logo">
+            <img src="img/svg/UnWaste Letter.svg" alt="logo" id="logoDesktop">
+            <img src="img/svg/UnWaste Icon Black.svg" alt="logo" id="logoMobile">
+        </a>
+
+        <!-- NAVBAR -->
+        <nav id="navbar">
+            <button id="btn-menu">
+                <label for="check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </button>
+
+            <!-- MENULIST -->
+            <ul id="menulist">
+                <li><a href="">Logout</a></li>
+                <li><a href="">Settings</a></li>
+                <li><a href="">Login</a></li>
+                <li><a href="">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main">
+        <div class="section1">
+            <div class="container">
+                <img src="img/svg/Background2.svg" alt="">
+                <div class="textarea">
+                    <h1>Lorem <br>Ipsum</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, laudantium similique nam exercitationem nobis tenetur animi quis voluptates optio illum voluptatem corporis quo accusantium doloremque reprehenderit eos aperiam laboriosam dolorem!</p>
+                    <button>Descubra mais -></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <ul>
+          <li><a href="{% url 'base:terms_of_service' %}">Terms of service</a></li>
+          <li><a href="{% url 'base:privacy_policy' %}">Privacy policy</a></li>
+          <li><a href="{% url 'base:about_us' %}">About us</a></li>
+        </ul>
+      </footer>
+</body>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+</html>
