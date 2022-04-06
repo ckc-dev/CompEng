@@ -29,17 +29,18 @@ header a{
     font-family: 'Roboto', sans-serif;
 }
 
-#logoDesktop{
-    width: 50%;
-    height: 50%;
+#logo{
+    height: 100%;
+}
+
+#logoDesktop, #logoMobile{
+    height: 100%;
     /* Gambiarra pra pintar o logo svg de branco */
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg) brightness(104%) contrast(102%);
 }
 
 #logoMobile{
     display: none;
-    /* Gambiarra pra pintar o logo svg de branco */
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg) brightness(104%) contrast(102%);
 }
 
 #btn-menu{
@@ -134,8 +135,6 @@ footer ul li a{
 
     #logoMobile{
         display: block;
-        width: 20%;
-        height: 20%;
     }
 
     #btn-menu{
