@@ -1,4 +1,4 @@
-const btnMenu = document.getElementById("btn-menu");
-const navbar = document.getElementById("navbar");
+const mobileNav = document.querySelector("nav.mobile");
+const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
 
-btnMenu.onclick = () => navbar.classList.toggle("active");
+mobileNavToggle.onclick = () => mobileNav.classList.toggle("hidden");

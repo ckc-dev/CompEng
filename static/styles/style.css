@@ -1,0 +1,184 @@
+/* Variables. */
+:root {
+  --color-white: #eaeaea;
+  --color-black: #0c0c0c;
+  --color-primary: #29bb89;
+  --color-background: #2c2829;
+}
+
+/* Utility classes. */
+.hidden {
+  display: none;
+}
+
+/* General styles. */
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  color: var(--color-primary);
+  font-size: 6rem;
+}
+
+p {
+  max-width: 80ch;
+}
+
+button {
+  border: none;
+  border-radius: 0.65rem;
+  background: var(--color-primary);
+  cursor: pointer;
+  width: 15rem;
+  color: inherit;
+  padding-block: 0.25rem;
+}
+
+button.confirm::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: " \f178";
+}
+
+/* Page sectioning. */
+body {
+  background: var(--color-background)
+    url(/static/base/images/svg/Background2.svg) no-repeat;
+  background-size: 100% auto;
+  color: var(--color-white);
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  background: var(--color-black);
+  padding: 1rem;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+nav ul {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  gap: 1rem;
+}
+
+nav .logo-container img {
+  height: 40px;
+  /* Hack-ish solution to make SVG white. */
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg)
+    brightness(104%) contrast(102%);
+}
+
+nav .mobile-nav-toggle,
+nav .logo-container .mobile {
+  display: none;
+}
+
+nav .mobile-nav-toggle {
+  border: none;
+  background: none;
+  width: max-content;
+  color: inherit;
+  font-size: xx-large;
+}
+
+nav.mobile {
+  position: fixed;
+  left: 0;
+  align-items: normal;
+  background: var(--color-black);
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+nav.mobile ul {
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
+}
+
+nav.mobile ul li {
+  border-bottom: 1px solid;
+}
+
+/* Make it so that the full width of links in mobile navigation bar items is
+   clickable, rather than only their contents. Makes for a better UX. */
+nav.mobile ul li a {
+  display: block;
+  width: 100%;
+}
+
+section {
+  margin-bottom: 5rem;
+  padding: 1rem;
+  max-width: 100rem;
+  margin-inline: auto;
+}
+
+section > * {
+  margin-block: 0.5rem;
+}
+
+section:first-of-type {
+  margin-top: 8rem;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background: var(--color-black);
+  padding: 1rem;
+  width: 100vw;
+}
+
+footer ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 767px) {
+  /* General styles. */
+  h1 {
+    font-size: 3rem;
+  }
+
+  /* Page sectioning. */
+  nav .mobile-nav-toggle,
+  nav .logo-container .mobile {
+    display: block;
+  }
+
+  nav:not(.mobile) ul,
+  .logo-container .desktop {
+    display: none;
+  }
+
+  section {
+    margin-bottom: 0;
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  nav.mobile {
+    display: none;
+  }
+}
