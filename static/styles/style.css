@@ -46,6 +46,16 @@ button.confirm::after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: " \f178";
+  opacity: 0;
+  position: fixed;
+  margin-left: 5px;
+  transition: 0.2s;
+}
+
+button.confirm:hover::after,
+button.confirm:focus:after {
+  margin-left: 10px;
+  opacity: 1;
 }
 
 /* Page sectioning. */
