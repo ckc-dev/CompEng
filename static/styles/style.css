@@ -61,10 +61,10 @@ button.confirm:focus:after {
 /* Page sectioning. */
 body {
   background: var(--color-background)
-    url(/static/base/images/svg/Background2.svg) no-repeat;
+    url(/static/base/images/svg/background.svg) no-repeat;
   background-size: 100% auto;
   color: var(--color-white);
-  font-family: "Poppins", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 header {
@@ -88,9 +88,6 @@ nav ul {
 
 nav .logo-container img {
   height: 40px;
-  /* Hack-ish solution to make SVG white. */
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg)
-    brightness(104%) contrast(102%);
 }
 
 nav .mobile-nav-toggle,
