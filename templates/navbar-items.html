@@ -1,0 +1,7 @@
+{% if request.user.is_authenticated %}
+  <li><a href="{% url 'base:logout' %}">Logout</a></li>
+  <li><a href="{% url 'base:settings' %}">Settings</a></li>
+{% else %}
+  <li><a href="{% url 'base:login' %}">Login</a></li>
+  <li><a href="{% url 'base:register' %}">Register</a></li>
+{% endif %}

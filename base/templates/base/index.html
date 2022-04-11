@@ -1,68 +1,17 @@
 {% extends 'main.html' %}
-{% load static %}
 
-{% block title %}Welcome{% endblock %}
-
-{% block head %}
-  <script src="{% static 'base/scripts/index.js' %}" defer></script>
+{% block title %}
+  {% if request.user.is_authenticated %}Dashboard{% else %}Welcome{% endif %}
 {% endblock %}
 
 {% block body %}
-  <header>
-    <nav>
-      <button class="mobile-nav-toggle fa-solid fa-bars"></button>
-      <a class="logo-container" href="{% url 'base:index' %}">
-        <img
-          class="desktop"
-          src="{% static 'base/images/svg/logotype.svg' %}"
-          alt="unWaste logo."
-        />
-        <img
-          class="mobile"
-          src="{% static 'base/images/svg/logomark.svg' %}"
-          alt="unWaste logo."
-        />
-      </a>
-      <ul>
-        {% if request.user.is_authenticated %}
-          <li><a href="{% url 'base:logout' %}">Logout</a></li>
-          <li><a href="{% url 'base:settings' %}">Settings</a></li>
-        {% else %}
-          <li><a href="{% url 'base:login' %}">Login</a></li>
-          <li><a href="{% url 'base:register' %}">Register</a></li>
-        {% endif %}
-      </ul>
-    </nav>
-    <nav class="mobile hidden">
-      <ul>
-        {% if request.user.is_authenticated %}
-          <li><a href="{% url 'base:logout' %}">Logout</a></li>
-          <li><a href="{% url 'base:settings' %}">Settings</a></li>
-        {% else %}
-          <li><a href="{% url 'base:login' %}">Login</a></li>
-          <li><a href="{% url 'base:register' %}">Register</a></li>
-        {% endif %}
-        <li><a href="{% url 'base:terms_of_service' %}">Terms of service</a></li>
-        <li><a href="{% url 'base:privacy_policy' %}">Privacy policy</a></li>
-        <li><a href="{% url 'base:about_us' %}">About us</a></li>
-      </ul>
-    </nav>
-  </header>
-  <section>
-    <h1>unWaste</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, laudantium
-      similique nam exercitationem nobis tenetur animi quis voluptates optio illum
-      voluptatem corporis quo accusantium doloremque reprehenderit eos aperiam
-      laboriosam dolorem!
-    </p>
-    <button class="confirm">Learn more</button>
-  </section>
-  <footer>
-    <ul>
-      <li><a href="{% url 'base:terms_of_service' %}">Terms of service</a></li>
-      <li><a href="{% url 'base:privacy_policy' %}">Privacy policy</a></li>
-      <li><a href="{% url 'base:about_us' %}">About us</a></li>
-    </ul>
-  </footer>
+  {% if request.user.is_authenticated  %}
+    {% if request.user.is_business %}
+      {% include 'base/index-juridical.html' %}
+    {% else %}
+      {% include 'base/index-physical.html' %}
+    {% endif %}
+  {% else %}
+    {% include 'base/index-landing-page.html' %}
+  {% endif %}
 {% endblock %}

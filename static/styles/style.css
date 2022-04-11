@@ -79,11 +79,17 @@ button.confirm:focus:after {
 
 /* Page sectioning. */
 body {
-  background: var(--color-background)
-    url(/static/base/images/svg/background.svg) no-repeat;
+  background: var(--color-background) url(/static/images/svg/background.svg)
+    no-repeat;
   background-size: 100% auto;
   color: var(--color-white);
   font-family: "Ubuntu", sans-serif;
+}
+
+div.main-container {
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }
 
 header {
@@ -159,9 +165,6 @@ nav.mobile ul li a {
 
 section {
   margin-bottom: 5rem;
-  padding: 1rem;
-  max-width: 100rem;
-  margin-inline: auto;
 }
 
 section > * {

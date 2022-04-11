@@ -9,8 +9,8 @@
     <title>{% block title %}{% endblock %} - unWaste</title>
     <link href="{% static 'styles/reset.css' %}" rel="stylesheet" />
     <link href="{% static 'styles/style.css' %}" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap"
       rel="stylesheet"
@@ -19,9 +19,40 @@
       src="https://kit.fontawesome.com/fedd2c1095.js"
       crossorigin="anonymous"
     ></script>
+    <script src="{% static 'scripts/script.js' %}" defer></script>
     {% block head %}{% endblock %}
   </head>
   <body>
-    {% block body %}{% endblock %}
+    <header>
+      <nav>
+        <button class="mobile-nav-toggle fa-solid fa-bars"></button>
+        <a class="logo-container" href="{% url 'base:index' %}">
+          <img
+            class="desktop"
+            src="{% static 'images/svg/logotype.svg' %}"
+            alt="unWaste logo."
+          />
+          <img
+            class="mobile"
+            src="{% static 'images/svg/logomark.svg' %}"
+            alt="unWaste logo."
+          />
+        </a>
+        <ul>
+          {% include 'navbar-items.html' %}
+        </ul>
+      </nav>
+      <nav class="mobile hidden">
+        <ul>
+          {% include 'navbar-items.html' %} {% include 'footer-items.html' %}
+        </ul>
+      </nav>
+    </header>
+    <div class="main-container">{% block body %}{% endblock %}</div>
+    <footer>
+      <ul>
+        {% include 'footer-items.html' %}
+      </ul>
+    </footer>
   </body>
 </html>
