@@ -3,7 +3,7 @@
 <section>
   <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
   <form method="post">
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %} {{ form }}
     <button type="submit">
       {% if page == 'login' %}Login{% else %}Register{% endif %}
     </button>

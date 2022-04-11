@@ -53,7 +53,7 @@ p {
 
 button {
   border: none;
-  border-radius: 0.65rem;
+  border-radius: 0.5rem;
   background: var(--color-primary);
   cursor: pointer;
   width: 15rem;
@@ -186,6 +186,28 @@ footer {
 footer ul {
   display: flex;
   justify-content: space-around;
+}
+
+/* Forms. */
+form {
+  display: flex;
+  max-width: 40rem;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+form input {
+  border-radius: .5rem;
+  border: none;
+  padding: .25rem;
+}
+
+form input[type=checkbox] {
+  width: min-content;
+}
+
+form button {
+  width: 100%;
 }
 
 @media screen and (max-width: 767px) {
