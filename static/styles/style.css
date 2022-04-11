@@ -92,6 +92,16 @@ div.main-container {
   padding-inline: 1rem;
 }
 
+div.main-container a {
+  transition: 0.25s;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+div.main-container a:hover,
+div.main-container a:focus {
+  border-bottom: 3px solid var(--color-primary);
+}
+
 header {
   position: fixed;
   top: 0;
@@ -191,18 +201,18 @@ footer ul {
 /* Forms. */
 form {
   display: flex;
-  max-width: 40rem;
   flex-direction: column;
-  gap: .5rem;
+  max-width: 40rem;
+  gap: 0.5rem;
 }
 
 form input {
-  border-radius: .5rem;
   border: none;
-  padding: .25rem;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
 }
 
-form input[type=checkbox] {
+form input[type="checkbox"] {
   width: min-content;
 }
 
