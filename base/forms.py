@@ -9,11 +9,11 @@ class RegisterForm(UserCreationForm):
         fields = (
             'name',
             'email',
-            'cpf',
             'is_business',
+            'cpf',
             'cnpj',
             'password1',
-            'password2'
+            'password2',
         )
 
     def __init__(self, *args, **kwargs):

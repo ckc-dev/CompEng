@@ -47,7 +47,7 @@ def user_register(request):
             except IntegrityError:
                 form.add_error(None, 'This user is already registered.')
 
-    context = {'form': form}
+    context = {'page': 'register', 'form': form}
 
     return render(request, 'base/authentication.html', context)
 
