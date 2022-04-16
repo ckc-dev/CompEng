@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
-from . import forms
+from . import forms, utils
 
 
 def index(request):
@@ -40,10 +40,14 @@ def user_register(request):
     if request.method == 'POST':
         if form.is_valid():
             try:
-                user = form.save()
+                user = form.save(commit=False)
+                if not user.is_business:
+                    if utils.check_cpf(user.cpf):
+                        user.save()
+                        login(request, user)
+                        return redirect('base:index')
 
-                login(request, user)
-                return redirect('base:index')
+                    form.add_error('cpf', 'Invalid CPF number.')
             except IntegrityError:
                 form.add_error(None, 'This user is already registered.')
 
