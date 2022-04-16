@@ -16,6 +16,11 @@ def check_cpf(cpf):
     if len(set(cpf)) == 1:
         return False
 
+    # Edge cases that would still pass the matematical check.
+    EDGE_CASES = ("01234567890",)
+    if cpf in EDGE_CASES:
+        return False
+
     try:
         # The first verification digit is obtained by multiplying the first 9
         # digits of the CPF by the decreasing sequence of numbers from 10 to 2,
@@ -24,8 +29,8 @@ def check_cpf(cpf):
         # resulting digit is either 10 or 11, then 0 is used instead. This
         # digit must match the 10th digit of the CPF.
         first_verification_digit = (
-            (sum([int(cpf[i]) * (10-i) for i in range(9)]) * 10) % 11)
-        if first_verification_digit in [10, 11]:
+            (sum(int(cpf[i]) * (10-i) for i in range(9)) * 10) % 11)
+        if first_verification_digit in (10, 11):
             first_verification_digit = 0
         assert first_verification_digit == int(cpf[9])
 
@@ -34,11 +39,15 @@ def check_cpf(cpf):
         # sequence of numbers starts in 11. This digit must match the 11th
         # digit of the CPF.
         second_verification_digit = (
-            (sum([int(cpf[i]) * (11-i) for i in range(10)]) * 10) % 11)
-        if second_verification_digit in [10, 11]:
+            (sum(int(cpf[i]) * (11-i) for i in range(10)) * 10) % 11)
+        if second_verification_digit in (10, 11):
             second_verification_digit = 0
         assert second_verification_digit == int(cpf[10])
 
         return True
     except AssertionError:
         return False
+
+
+def check_cnpj(cnpj):
+    pass
