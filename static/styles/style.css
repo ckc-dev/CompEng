@@ -3,12 +3,17 @@
   --color-white: #eaeaea;
   --color-black: #0c0c0c;
   --color-primary: #29bb89;
-  --color-background: #2c2829;
+  --color-secondary: #161b22;
+  --color-background: #0d1117;
 }
 
 /* Utility classes. */
 .hidden {
   display: none;
+}
+
+.margin-center {
+  margin-inline: auto;
 }
 
 /* Animations */
@@ -42,9 +47,17 @@ a {
   color: inherit;
 }
 
-h1 {
+h1,
+h2 {
   color: var(--color-primary);
+}
+
+h1 {
   font-size: 6rem;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 p {
@@ -58,7 +71,15 @@ button {
   cursor: pointer;
   width: 15rem;
   color: inherit;
-  padding-block: 0.25rem;
+  padding-block: 0.5rem;
+}
+
+button.confirm {
+  box-shadow: 0 10px 40px -12px #00ff8080;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: black;
+  font-weight: bold;
 }
 
 button.confirm::after {
@@ -79,8 +100,7 @@ button.confirm:focus:after {
 
 /* Page sectioning. */
 body {
-  background: var(--color-background) url(/static/images/svg/background.svg)
-    no-repeat;
+  background: var(--color-background);
   background-size: 100% auto;
   color: var(--color-white);
   font-family: "Ubuntu", sans-serif;
@@ -206,10 +226,16 @@ form {
   gap: 0.5rem;
 }
 
+form label {
+  margin-left: 0.5rem;
+}
+
 form input {
   border: none;
   border-radius: 0.5rem;
-  padding: 0.25rem;
+  background: #0005;
+  padding: 0.5rem;
+  color: var(--color-white);
 }
 
 form input[type="checkbox"] {
@@ -217,12 +243,28 @@ form input[type="checkbox"] {
 }
 
 form button {
+  margin-top: 1rem;
   width: 100%;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px #0005;
+  background: var(--color-secondary);
+  padding: 2rem;
+  max-width: 40rem;
+  gap: 1rem;
 }
 
 @media screen and (max-width: 767px) {
   h1 {
     font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
   }
 
   nav .mobile-nav-toggle,

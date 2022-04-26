@@ -13,18 +13,22 @@
 
 {% block body %}
   <section>
-    <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
-    <form method="post">
-      {% csrf_token %} {{ form }}
-      <button type="submit">
-        {% if page == 'login' %}Login{% else %}Register{% endif %}
-      </button>
-    </form>
-    <p>
-      {% if page == 'login' %} Don't have an account yet?
-      <a href="{% url 'base:register' %}">Register here.</a> {% else %} Already
-      have an account? <a href="{% url 'base:login' %}">Login here.</a>
-      {% endif %}
-    </p>
+    <div class="component margin-center">
+      <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="confirm" type="submit">
+          {% if page == 'login' %}Login{% else %}Register{% endif %}
+        </button>
+      </form>
+      <p>
+        {% if page == 'login' %}
+          Don't have an account yet? <a href="{% url 'base:register' %}">Register here.</a>
+        {% else %}
+          Already have an account? <a href="{% url 'base:login' %}">Login here.</a>
+        {% endif %}
+      </p>
+    </div>
   </section>
 {% endblock %}
