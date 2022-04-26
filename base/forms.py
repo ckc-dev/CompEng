@@ -1,5 +1,13 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs["placeholder"] = field.label
 
 
 class RegisterForm(UserCreationForm):
@@ -20,6 +28,9 @@ class RegisterForm(UserCreationForm):
 
         self.fields['cpf'].label = 'CPF'
         self.fields['cnpj'].label = 'CNPJ'
+
+        for field in self.fields.values():
+            field.widget.attrs["placeholder"] = field.label
 
     def clean(self):
         data = self.cleaned_data

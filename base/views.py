@@ -1,7 +1,6 @@
 """Views for base app."""
 
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 
@@ -16,7 +15,7 @@ def user_login(request):
     if request.user.is_authenticated:
         logout(request)
 
-    form = AuthenticationForm(request, data=request.POST or None)
+    form = forms.LoginForm(request, data=request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
