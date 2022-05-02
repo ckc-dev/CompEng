@@ -11,11 +11,11 @@ window.onscroll = () => {
 };
 
 // Initialize modal elements.
-const modal = document.getElementsByClassName("modal")[0];
-const video = modal.getElementsByClassName("modal-video")[0];
-const modalSubscribe = modal.getElementsByClassName("modal-subscribe")[0];
-const subscribeButton = document.getElementsByClassName("subscribe-button")[0];
-const videoButton = document.getElementsByClassName("video-button")[0];
+const modal = document.querySelector(".modal");
+const video = modal.querySelector(".modal-video");
+const modalSubscribe = modal.querySelector(".modal-subscribe");
+const subscribeButton = document.querySelector(".subscribe-button");
+const videoButton = document.querySelector(".video-button");
 
 // Handle opening and closing modal.
 subscribeButton.onclick = () => {
