@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.forms import ModelForm
 
 
 class LoginForm(AuthenticationForm):
@@ -44,3 +45,15 @@ class RegisterForm(UserCreationForm):
             self.add_error('cpf', 'Please insert your CPF.')
         else:
             return data
+
+
+class PasswordResetRequestForm(ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetRequestForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs['placeholder'] = field.label

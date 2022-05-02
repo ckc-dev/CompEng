@@ -16,6 +16,10 @@
   margin-inline: auto;
 }
 
+.width-full {
+  width: 100%;
+}
+
 /* Animations */
 @keyframes nav-mobile-slide-right {
   from {

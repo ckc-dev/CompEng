@@ -24,6 +24,7 @@
       </form>
       <p>
         {% if page == 'login' %}
+          Forgot your password? <a href="{% url 'base:password_reset' %}">Reset it here.</a>
           Don't have an account yet? <a href="{% url 'base:register' %}">Register here.</a>
         {% else %}
           Already have an account? <a href="{% url 'base:login' %}">Login here.</a>
