@@ -17,7 +17,7 @@ def check_cpf(cpf):
         return False
 
     # Edge cases that would still pass the matematical check.
-    EDGE_CASES = ("01234567890",)
+    EDGE_CASES = ('01234567890',)
     if cpf in EDGE_CASES:
         return False
 

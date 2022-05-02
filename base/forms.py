@@ -8,7 +8,7 @@ class LoginForm(AuthenticationForm):
         super(LoginForm, self).__init__(*args, **kwargs)
 
         for field in self.fields.values():
-            field.widget.attrs["placeholder"] = field.label
+            field.widget.attrs['placeholder'] = field.label
 
 
 class RegisterForm(UserCreationForm):
@@ -31,7 +31,7 @@ class RegisterForm(UserCreationForm):
         self.fields['cnpj'].label = 'CNPJ'
 
         for field in self.fields.values():
-            field.widget.attrs["placeholder"] = field.label
+            field.widget.attrs['placeholder'] = field.label
 
     def clean(self):
         data = self.cleaned_data
