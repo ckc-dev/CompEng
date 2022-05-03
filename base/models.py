@@ -1,3 +1,5 @@
+"""'base' app models."""
+
 from django.db import models
 
 REQUIREMENT_PRIORITY_DEFAULT = 'Essencial'
@@ -9,6 +11,13 @@ REQUIREMENT_TYPES = [
 
 
 class Reference(models.Model):
+    """
+    Model for a reference, which is used when creating requirements.
+
+    Args:
+        Model (class): Django's base model class.
+    """
+
     is_available = models.BooleanField(default=True)
     name = models.CharField(max_length=256)
     section = models.CharField(max_length=64)
@@ -19,10 +28,18 @@ class Reference(models.Model):
     )
 
     def __str__(self):
+        """Model's string representation."""
         return f'{self.section} | {self.name}'
 
 
 class Requirement(models.Model):
+    """
+    Model for a requirement.
+
+    Args:
+        Model (class): Django's base model class.
+    """
+
     LATEX_TEMPLATE = """
     \\subsection{{{type}-{id}}}
         \\paragraph{{Nome}}
@@ -63,6 +80,7 @@ class Requirement(models.Model):
     description = models.TextField(max_length=16384)
 
     def save(self, *args, **kwargs):
+        """Save an instance of this model."""
         self.type = self.reference.type
         self.section = self.reference.section
         self.reference.is_available = False
@@ -71,12 +89,14 @@ class Requirement(models.Model):
         super(Requirement, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
+        """Delete an instance of this model."""
         self.reference.is_available = True
         self.reference.save()
 
         super(Requirement, self).delete(*args, **kwargs)
 
     def to_latex(self, id_):
+        """Return model's LaTeX representation."""
         return self.LATEX_TEMPLATE.format(
             type=self.type,
             id=str(id_).zfill(3),
@@ -89,4 +109,5 @@ class Requirement(models.Model):
         )
 
     def __str__(self):
+        """Model's string representation."""
         return f'{self.author} - {self.type} (V{self.version}) | {self.name}'

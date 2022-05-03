@@ -1,3 +1,5 @@
+"""Views for 'base' app."""
+
 from django.contrib import messages
 from django.shortcuts import render
 
@@ -5,6 +7,15 @@ from . import forms, models
 
 
 def index(request):
+    """
+    View for index page.
+
+    Args:
+        request (HttpRequest): Request made by user.
+
+    Returns:
+        HttpResponse: Rendered page.
+    """
     references = models.Reference.objects.all().order_by('pk')
     requirements = models.Requirement.objects.all().order_by('-date')
     form = forms.RequirementForm(request.POST or None)
@@ -33,6 +44,15 @@ def index(request):
 
 
 def latex(request):
+    """
+    View for page containing LaTeX representation of requirements.
+
+    Args:
+        request (HttpRequest): Request made by user.
+
+    Returns:
+        HttpResponse: Rendered page.
+    """
     requirements = models.Requirement.objects.all().order_by('section')
     sections = set(requirements.values_list('section', flat=True))
     string = ''
@@ -51,7 +71,7 @@ def latex(request):
             else:
                 string += requirement.to_latex(non_functional_requirement_id)
                 non_functional_requirement_id += 1
-        string += "\n"
+        string += '\n'
 
     context = {'string': string}
 

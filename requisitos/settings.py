@@ -52,7 +52,6 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('APPLICATION_URL')]
 
-
 # Application definition.
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,7 +110,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation.
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
@@ -129,14 +127,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization.
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images).
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

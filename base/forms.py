@@ -1,10 +1,21 @@
+"""Forms used in 'base' app."""
+
 from django import forms
 
 from . import models
 
 
 class RequirementForm(forms.ModelForm):
+    """
+    Form used for creating requirements.
+
+    Args:
+        ModelForm (class): Django's base model form.
+    """
+
     class Meta:
+        """Define options for this form."""
+
         model = models.Requirement
         fields = (
             'author',
@@ -17,6 +28,7 @@ class RequirementForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
+        """Construct an instance of this form."""
         super(RequirementForm, self).__init__(*args, **kwargs)
 
         self.fields['author'].label = 'Seu nome'

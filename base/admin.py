@@ -1,3 +1,5 @@
+"""Register 'base' app models to Django's admin panel."""
+
 from django.contrib import admin
 
 from . import models
