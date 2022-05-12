@@ -25,3 +25,11 @@ class User(AbstractUser):
 
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
+
+
+class PasswordResetRequest(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, 'password_reset_requests')
+    timestamp = models.DateTimeField()
+    expiry = models.DateTimeField()
+    token = models.CharField(max_length=36, unique=True)
+    done = models.BooleanField(default=False)

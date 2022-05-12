@@ -1,6 +1,14 @@
-from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.forms import ModelForm
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs['placeholder'] = field.label
 
 
 class RegisterForm(UserCreationForm):
@@ -9,11 +17,11 @@ class RegisterForm(UserCreationForm):
         fields = (
             'name',
             'email',
-            'cpf',
             'is_business',
+            'cpf',
             'cnpj',
             'password1',
-            'password2'
+            'password2',
         )
 
     def __init__(self, *args, **kwargs):
@@ -21,6 +29,9 @@ class RegisterForm(UserCreationForm):
 
         self.fields['cpf'].label = 'CPF'
         self.fields['cnpj'].label = 'CNPJ'
+
+        for field in self.fields.values():
+            field.widget.attrs['placeholder'] = field.label
 
     def clean(self):
         data = self.cleaned_data
@@ -34,3 +45,15 @@ class RegisterForm(UserCreationForm):
             self.add_error('cpf', 'Please insert your CPF.')
         else:
             return data
+
+
+class PasswordResetRequestForm(ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetRequestForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs['placeholder'] = field.label

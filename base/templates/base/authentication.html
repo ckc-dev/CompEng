@@ -1,24 +1,35 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block title %}
   {% if page == 'login' %}Login{% else %}Register{% endif %}
 {% endblock %}
 
+{% if page == 'register' %}
+  {% block head %}
+    <script src="{% static 'base/scripts/register.js' %}" defer></script>
+  {% endblock %}
+{% endif %}
+
 {% block body %}
-  <p><a href="{{ request.META.HTTP_REFERER }}">Back</a></p>
-  <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">
-      {% if page == 'login' %}Login{% else %}Register{% endif %}
-    </button>
-  </form>
-  <p>
-    {% if page == 'login' %}
-      Don't have an account yet? <a href="{% url 'base:register' %}">Register here.</a>
-    {% else %}
-      Already have an account? <a href="{% url 'base:login' %}">Login here.</a>
-    {% endif %}
-  </p>
+  <section>
+    <div class="component margin-center">
+      <h2>{% if page == 'login' %}Welcome back{% else %}Welcome{% endif %}</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="confirm" type="submit">
+          {% if page == 'login' %}Login{% else %}Register{% endif %}
+        </button>
+      </form>
+      <p>
+        {% if page == 'login' %}
+          Forgot your password? <a href="{% url 'base:password_reset' %}">Reset it here.</a>
+          Don't have an account yet? <a href="{% url 'base:register' %}">Register here.</a>
+        {% else %}
+          Already have an account? <a href="{% url 'base:login' %}">Login here.</a>
+        {% endif %}
+      </p>
+    </div>
+  </section>
 {% endblock %}

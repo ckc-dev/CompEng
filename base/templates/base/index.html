@@ -1,31 +1,17 @@
 {% extends 'main.html' %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}
+  {% if request.user.is_authenticated %}Dashboard{% else %}Welcome{% endif %}
+{% endblock %}
 
 {% block body %}
-  <nav>
-    <ul>
-      <li><h1><a href="{% url 'base:index' %}">unWaste</a></h1></li>
-      {% if request.user.is_authenticated %}
-        <li><a href="{% url 'base:logout' %}">Logout</a></li>
-        <li><a href="{% url 'base:settings' %}">Settings</a></li>
-      {% else %}
-        <li><a href="{% url 'base:login' %}">Login</a></li>
-        <li><a href="{% url 'base:register' %}">Register</a></li>
-      {% endif %}
-    </ul>
-  </nav>
-  <hr>
-  {% if user.is_business %}
-    {% include 'base/index-juridical.html' %}
+  {% if request.user.is_authenticated  %}
+    {% if request.user.is_business %}
+      {% include 'base/index-juridical.html' %}
+    {% else %}
+      {% include 'base/index-physical.html' %}
+    {% endif %}
   {% else %}
-    {% include 'base/index-physical.html' %}
+    {% include 'base/index-landing-page.html' %}
   {% endif %}
-  <footer>
-    <ul>
-      <li><a href="{% url 'base:terms_of_service' %}">Terms of service</a></li>
-      <li><a href="{% url 'base:privacy_policy' %}">Privacy policy</a></li>
-      <li><a href="{% url 'base:about_us' %}">About us</a></li>
-    </ul>
-  </footer>
 {% endblock %}
