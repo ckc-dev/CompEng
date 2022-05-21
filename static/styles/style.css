@@ -295,3 +295,18 @@ form button {
     display: none;
   }
 }
+
+/* Terms of Service & Privacy Policy Start */
+.container-terms h3{
+  margin-top: 20px;
+}
+
+.container-terms p{
+  margin-bottom: 10px;
+}
+
+.terms-list ul{
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+/* Terms of Service & Privacy Policy End */
