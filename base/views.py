@@ -162,12 +162,13 @@ def privacy_policy(request):
 
 
 def collection_request(request):
-    initial = {'user': request.user}
-    form = forms.CollectionRequestForm(request.POST or None, initial=initial)
+    form = forms.CollectionRequestForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            r = form.save(commit=False)
+            r.user = request.user
+            r.save()
 
             return redirect('base:collection_request')
 
