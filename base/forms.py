@@ -1,6 +1,8 @@
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.forms import ModelForm
+
+from . import models
 
 
 class LoginForm(AuthenticationForm):
@@ -47,7 +49,7 @@ class RegisterForm(UserCreationForm):
             return data
 
 
-class PasswordResetRequestForm(ModelForm):
+class PasswordResetRequestForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('email',)
@@ -57,3 +59,19 @@ class PasswordResetRequestForm(ModelForm):
 
         for field in self.fields.values():
             field.widget.attrs['placeholder'] = field.label
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class CollectionRequestForm(forms.ModelForm):
+    class Meta:
+        model = models.WasteCollectionRequest
+        fields = (
+            'address',
+            'kilogram_amount',
+            'waste_type',
+            'desired_collection_date',
+        )
+        widgets = {'desired_collection_date': DateInput()}

@@ -33,3 +33,38 @@ class PasswordResetRequest(models.Model):
     expiry = models.DateTimeField()
     token = models.CharField(max_length=36, unique=True)
     done = models.BooleanField(default=False)
+
+
+class WasteCollectionRequest(models.Model):
+    WASTE_TYPE_ABS = 'ABS'
+    WASTE_TYPE_ALUMINUM = 'ALU'
+    WASTE_TYPE_PET = 'PET'
+    WASTE_TYPE_CHOICES = [
+        (WASTE_TYPE_ABS, 'ABS Plastic (acrylonitrile butadiene styrene)'),
+        (WASTE_TYPE_ALUMINUM, 'Aluminum'),
+        (WASTE_TYPE_PET, 'PET Plastic (polyethylene terephthalate)'),
+    ]
+    STATUS_ACCEPTED = 'A'
+    STATUS_PENDING = 'P'
+    STATUS_REJECTED = 'R'
+    STATUS_CHOICES = [
+        (STATUS_ACCEPTED, 'Request accepted.'),
+        (STATUS_PENDING, 'Request pending.'),
+        (STATUS_REJECTED, 'Request rejected.'),
+    ]
+
+    user = models.ForeignKey(User, models.CASCADE, 'collection_requests')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    address = models.CharField(max_length=2048)
+    kilogram_amount = models.DecimalField(max_digits=5, decimal_places=2)
+    desired_collection_date = models.DateField()
+    waste_type = models.CharField(
+        max_length=3,
+        choices=WASTE_TYPE_CHOICES,
+        default=WASTE_TYPE_ALUMINUM
+    )
+    status = models.CharField(
+        max_length=1,
+        choices=STATUS_CHOICES,
+        default=STATUS_PENDING
+    )

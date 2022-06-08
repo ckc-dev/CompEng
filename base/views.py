@@ -159,3 +159,18 @@ def terms_of_service(request):
 
 def privacy_policy(request):
     return render(request, 'base/privacy-policy.html')
+
+
+def collection_request(request):
+    initial = {'user': request.user}
+    form = forms.CollectionRequestForm(request.POST or None, initial=initial)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+
+            return redirect('base:collection_request')
+
+    context = {'form': form}
+
+    return render(request, 'base/collection-request.html', context)

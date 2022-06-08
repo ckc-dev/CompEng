@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Colletion request{% endblock %}
+
+{% block body %}
+  <section>
+    <h2>Request a collection:</h2>
+    <div class="component">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit request</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}
