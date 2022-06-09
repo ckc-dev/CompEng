@@ -69,8 +69,8 @@ p {
 }
 
 hr {
-  border-radius: 1rem;
   border: 1px solid #ffffff20;
+  border-radius: 1rem;
 }
 
 button {
@@ -239,7 +239,8 @@ form label {
   margin-left: 0.5rem;
 }
 
-form input, form select {
+form input,
+form select {
   border: none;
   border-radius: 0.5rem;
   background: #0005;
@@ -312,18 +313,3 @@ form button {
     display: none;
   }
 }
-
-/* Terms of Service & Privacy Policy Start */
-.container-terms h3 {
-  margin-top: 20px;
-}
-
-.container-terms p {
-  margin-bottom: 10px;
-}
-
-.terms-list ul {
-  margin-left: 30px;
-  margin-bottom: 10px;
-}
-/* Terms of Service & Privacy Policy End */
