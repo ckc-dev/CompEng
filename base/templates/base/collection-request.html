@@ -7,10 +7,10 @@
   <section>
     <h2>Request a collection:</h2>
     <div class="component">
-      <form action="" method="post">
+      <form method="post">
         {% csrf_token %}
         {{ form }}
-        <button type="submit">Submit request</button>
+        <button class="confirm" type="submit">Submit request</button>
       </form>
     </div>
   </section>
@@ -19,12 +19,18 @@
       <h2>Your requests:</h2>
       {% for r in collection_requests %}
         <div class="component">
-          <p><b>{{ r.timestamp }}</b></p>
+          <h3><b>{{ r.timestamp }}</b></h3>
+          <hr />
           <p><b>Address:</b> {{ r.address }}</p>
           <p><b>Amount:</b> {{ r.kilogram_amount }}kg</p>
           <p><b>Desired collection date:</b> {{ r.desired_collection_date }}</p>
           <p><b>Waste type:</b> {{ r.get_waste_type_display }}</p>
-          <p><b>Status:</b> {{ r.get_status_display }}</p>
+          <p>
+            <b>Status:</b>
+            <span data-request-status="{{ r.status }}"
+              >{{ r.get_status_display }}</span
+            >
+          </p>
         </div>
       {% endfor %}
     </section>

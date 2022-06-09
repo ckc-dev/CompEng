@@ -68,6 +68,11 @@ p {
   max-width: 80ch;
 }
 
+hr {
+  border-radius: 1rem;
+  border: 1px solid #ffffff20;
+}
+
 button {
   border: none;
   border-radius: 0.5rem;
@@ -234,7 +239,7 @@ form label {
   margin-left: 0.5rem;
 }
 
-form input {
+form input, form select {
   border: none;
   border-radius: 0.5rem;
   background: #0005;
@@ -260,6 +265,18 @@ form button {
   padding: 2rem;
   max-width: 40rem;
   gap: 1rem;
+}
+
+[data-request-status="P"] {
+  color: #ffff7f;
+}
+
+[data-request-status="R"] {
+  color: #ff6e6e;
+}
+
+[data-request-status="A"] {
+  color: #6ebb6e;
 }
 
 @media screen and (max-width: 767px) {
@@ -297,15 +314,15 @@ form button {
 }
 
 /* Terms of Service & Privacy Policy Start */
-.container-terms h3{
+.container-terms h3 {
   margin-top: 20px;
 }
 
-.container-terms p{
+.container-terms p {
   margin-bottom: 10px;
 }
 
-.terms-list ul{
+.terms-list ul {
   margin-left: 30px;
   margin-bottom: 10px;
 }
