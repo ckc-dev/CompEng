@@ -92,7 +92,7 @@ button.confirm {
 }
 
 button.confirm::after {
-  position: fixed;
+  position: absolute;
   transition: 0.2s;
   opacity: 0;
   margin-left: 5px;
