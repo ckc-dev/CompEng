@@ -15,7 +15,24 @@ from . import forms, models, utils
 
 
 def index(request):
-    return render(request, 'base/index.html')
+    user = request.user
+    collection_requests = user.collection_requests.all()
+    collection_request_form = forms.CollectionRequestForm(request.POST or None)
+
+    if request.method == 'POST':
+        if collection_request_form.is_valid() and user.is_business:
+            r = collection_request_form.save(commit=False)
+            r.user = user
+            r.save()
+
+        return redirect('base:index')
+
+    context = {
+        'collection_requests': collection_requests,
+        'collection_request_form': collection_request_form,
+    }
+
+    return render(request, 'base/index.html', context)
 
 
 def user_login(request):
@@ -159,24 +176,3 @@ def terms_of_service(request):
 
 def privacy_policy(request):
     return render(request, 'base/privacy-policy.html')
-
-
-def collection_request(request):
-    user = request.user
-    collection_requests = user.collection_requests.all()
-    form = forms.CollectionRequestForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            r = form.save(commit=False)
-            r.user = user
-            r.save()
-
-            return redirect('base:collection_request')
-
-    context = {
-        'collection_requests': collection_requests,
-        'form': form,
-    }
-
-    return render(request, 'base/collection-request.html', context)
