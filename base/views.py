@@ -16,7 +16,7 @@ from . import forms, models, utils
 
 def index(request):
     user = request.user
-    collection_requests = user.collection_requests.all()
+    collection_requests = user.collection_requests.all().order_by('-timestamp')
     collection_request_form = forms.CollectionRequestForm(request.POST or None)
 
     if request.method == 'POST':
