@@ -16,8 +16,12 @@ from . import forms, models, utils
 
 def index(request):
     user = request.user
-    collection_requests = user.collection_requests.all().order_by('-timestamp')
+    collection_requests = None
     collection_request_form = forms.CollectionRequestForm(request.POST or None)
+
+    if user.is_authenticated:
+        collection_requests = (
+            user.collection_requests.all().order_by('-timestamp'))
 
     if request.method == 'POST':
         if collection_request_form.is_valid() and user.is_business:
