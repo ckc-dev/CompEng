@@ -1,77 +1,82 @@
 {% extends 'main.html' %}
 
-{% block title %}Terms of service{% endblock %}
-
 {% block body %}
   <section>
-    <h2>Termos de Serviço</h2>
-    <div class="container-terms">
-      <h3>TERMOS DE SERVIÇO</h3>
-      <p>Esta plataforma de serviços e seu conteúdo são controlados e operados pelo próprio UnWaste. Todos os direitos reservados.</p>
-
-      <p>Estes termos de uso têm por objetivo definir as regras a serem seguidas para a utilização do site e seus serviços, sem prejuízo de aplicação da legislação vigente.</p>
-
-      <p>Ao criar e utilizar uma conta no UnWaste, você automaticamente concorda com os termos de uso, responsabilizando-se integralmente por todos e quaisquer atos praticados por você no UnWaste ou em serviços de terceiros relacionados a ele. Caso você não concorde com qualquer dos termos e condições abaixo estabelecidos, você não deve utilizar esta plataforma. Você também concorda com os termos descritos em nossa política de privacidade, para acessá-la, clique aqui <a href="#">Política de Privacidade</a>.</p>
-
-      <p>Caso queira nos dar algum feedback sobre o UnWaste, tenha dúvidas ou precise tratar de qualquer assunto relacionado a estes Termos de Uso, entre em contato conosco através do e-mail <a href="#">unwasteask@gmail.com</a>.</p>
-
-      <h3>SUSPENSÃO</h3>
-
-      <p>Nós nos reservamos o direito de suspender ou cancelar, a qualquer momento, o seu acesso à aplicação em caso de suspeita de fraude, obtenção de benefício ou vantagem de forma ilícita, ou pelo não cumprimento de quaisquer condições previstas nestes Termos de Uso, na <a href="#">Política de Privacidade</a> ou na legislação aplicável. Nesses casos, não será devida qualquer indenização a você, e o UnWaste poderá promover a competente ação de regresso, se necessário, bem como tomar quaisquer outras medidas necessárias para perseguir e resguardar seus interesses.</p>
-
-      <h3>Como acessar o UnWaste</h3>
-
-      <h3>Acesso:</h3>
-      
-      <p>Para acessar o UnWaste e utilizar de seus serviços é necessário efetuar um cadastro. Para cadastrar-se, você nos fornecerá informações pessoais como data de nascimento, e-mail, cpf, cnpj de sua empresa ou da qual você trabalha e nome completo. Para saber mais sobre a privacidade de dados pessoais no UnWaste, acesse nossa Política de Privacidade.</p>
- 
-      <h3>Idade Mínima de Utilização:</h3>
-
-      <p>Para utilizar o UnWaste, você deve ter pelo menos 18 anos.</p>
- 
-      <h3>Titularidade:</h3>
-
-      <p>A partir do cadastro, você será titular de uma conta que somente poderá ser acessada por pessoas autorizadas. Caso o UnWaste detecte alguma conta feita a partir de informações falsas ou acesso de pessoas não autorizadas, essa conta será automaticamente suspensa e possivelmente deletada futuramente.</p>
- 
-      <h3>Atualização das Informações:</h3>
-
-      <p>Desde já, você se compromete a manter as suas informações pessoais atualizadas. Você também concorda que irá manter o seus login e senha seguros e fora do alcance de terceiros, e não permitirá que a sua conta na plataforma seja utilizada por pessoas não autorizadas. Dessa forma, o usuário se responsabiliza por todas as ações realizadas em sua conta.</p>
-
-
-      <h3>DIREITOS</h3>
-
-      <p>Todos os direitos relativos ao UnWaste e suas funcionalidades são de propriedade exclusiva da equipe e seus autores, inclusive no que diz respeito aos seus textos, imagens, layouts, códigos, bases de dados, ilustrações e demais conteúdos produzidos diretamente ou indiretamente pela equipe do UnWaste. O conteúdo UnWaste é protegido pela lei de direitos autorais e de propriedade intelectual. É proibido usar, copiar, reproduzir, modificar, traduzir, publicar, transmitir, distribuir, exibir, licenciar, vender ou explorar o conteúdo UnWaste. Qualquer uso não autorizado do conteúdo UnWaste será considerado como violação dos direitos autorais e de propriedade intelectual.</p>
-
-      <h3>PROPRIEDADE INTELECTUAL</h3>
-
-      <p>Para a equipe do projeto UnWaste, a qualidade dos materiais disponibilizados ao usuário é de suma importância. Por isso reafirmamos que o UnWaste garante que todos os direitos, títulos e interesse sobre o serviço disponibilizado por nós permanecerão sob a titularidade UnWaste.</p>
-
-      <h3>RECLAMAÇÕES SOBRE VIOLAÇÃO DE DIREITO AUTORAL</h3>
-
-      A<p>legações de infringência de direito autoral de qualquer conteúdo disponível no UnWaste devem ser encaminhadas por meio do e-mail <a href="#">unwaste@gmail.com</a>.</p>
-
-      <h3>RESPONSABILIDADES DO USUÁRIO E DO UNWASTE</h3>
-      
-      <p>Você é exclusivamente responsável pelo uso do UnWaste e deverá respeitar as regras destes Termos de Uso, bem como a legislação aplicável ao UnWaste.</p>
-
-      <p>
-        O UnWaste e terceiros, não serão em hipótese alguma, responsabilizados por danos diretos ou indiretos que resultem de, ou que tenham relação com o acesso, uso ou incapacidade de acessar ou utilizar o UnWaste.
-        Manutenção
-      </p>
-
-      <p>
-        É de sua inteira responsabilidade manter o ambiente de seu dispositivo seguro, com uso de ferramentas disponíveis, de modo a contribuir na prevenção de riscos eletrônicos e contra sua conta UnWaste.
-        LEI E FORO.
-      </p>
-
-      <p>Este Termos de Uso são regidos pelas leis da República Federativa do Brasil. Quaisquer dúvidas e situações não previstas nestes Termos de Uso serão previamente resolvidas pelo UnWaste e, caso persistam, deverão ser solucionadas pelo Foro da Comarca de São Paulo, com exclusão de qualquer outro, por mais privilegiado que seja ou venha a ser.</p>
-
-      <h3>DÚVIDAS.</h3>
-
-      <p>Caso você tenha alguma dúvida, comentário ou sugestão, por favor, entre em contato conosco por meio do e-mail <a href="#">unwasteask@gmail.com</a>.</p>
-
-      <p>Esta política é efetiva a partir de 11 de Maio de 2022.</p>
-
-    </div>
+    <h2>{% block title %}Terms of service{% endblock %}</h2>
+    <p>
+      This service platform and its content are controlled and operated by unWaste
+      itself. All rights reserved.
+    </p>
+    <p>
+      These terms of use are intended to define the rules to be followed for the
+      use of the website and its services, without prejudice to the application of
+      current legislation.
+    </p>
+    <p>
+      By creating and using an account on unWaste, you automatically agree to the
+      terms of use, and you are fully responsible for any and all acts performed
+      by you on unWaste or third-party services related to it. If you do not agree
+      with any of the terms and conditions set out below, you must not use this
+      platform. You also agree to the terms described in our privacy policy.
+    </p>
+    <p>
+      If you would like to give us feedback about unWaste, have questions or need
+      to address any matter related to these terms of use, please contact us.
+    </p>
+    <p>
+      We reserve the right to suspend or cancel, at any time, your access to the
+      application in case of suspicion of fraud, illegally obtaining a benefit or
+      advantage, or for failing to comply with any conditions set forth in these
+      terms of use, in the privacy policy or applicable law. In such cases, no
+      compensation will be due to you, and unWaste will be able to take the
+      competent action of recourse, if necessary, as well as take any other
+      measures necessary to pursue and protect your interests.
+    </p>
+    <p>
+      To access unWaste and use its services, it is necessary to register. To
+      register, you will provide us with personal information such as date of
+      birth, e-mail, CPF, cnpj of your company or where you work and full name. To
+      learn more about personal data privacy at unWaste, visit our privacy policy.
+    </p>
+    <p>To use unWaste, you must be at least 18 years old.</p>
+    <p>
+      Upon registration, you will be the holder of an account that can only be
+      accessed by authorized persons. If unWaste detects any account made from
+      false information or access by unauthorized persons, that account will be
+      automatically suspended and possibly deleted in the future.
+    </p>
+    <p>
+      From now on, you undertake to keep your personal information up to date. You
+      also agree that you will keep your login and password secure and out of
+      reach of third parties, and you will not allow your account on the platform
+      to be used by unauthorized persons. In this way, the user is responsible for
+      all actions carried out on his account.
+    </p>
+    <p>
+      All rights related to unWaste and its functionalities are the exclusive
+      property of the team and its authors, including with regard to their texts,
+      images, layouts, codes, databases, illustrations and other content produced
+      directly or indirectly by the unWaste team. unWaste content is protected by
+      copyright and intellectual property law. It is prohibited to use, copy,
+      reproduce, modify, translate, publish, transmit, distribute, display,
+      license, sell or exploit the unWaste content. Any unauthorized use of
+      unWaste content will be considered copyright and intellectual property
+      infringement.
+    </p>
+    <p>
+      For the unWaste project team, the quality of the materials made available to
+      the user is of paramount importance. Therefore, we reaffirm that unWaste
+      guarantees that all rights, title and interest in the service provided by us
+      will remain with unWaste.
+    </p>
+    <p>
+      You are solely responsible for your use of unWaste and shall abide by the
+      rules of these terms of use, as well as the law applicable to unWaste.
+    </p>
+    <p>
+      unWaste and third parties will not be liable under any circumstances for
+      direct or indirect damages that result from or are related to access, use or
+      inability to access or use unWaste.
+    </p>
   </section>
 {% endblock %}
