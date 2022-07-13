@@ -2,7 +2,7 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-  <h1>Levantamento de Requisitos - Grupo 3</h1>
+  <h2>{% block title %}Levantamento{% endblock %}</h2>
   {% bootstrap_messages %}
   <form class="my-3" method="post">
     {% csrf_token %}
