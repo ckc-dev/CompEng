@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn requisitos.wsgi
+web: gunicorn levanta-requisitos.wsgi

@@ -1,5 +1,5 @@
 """
-WSGI configuration for requisitos project.
+WSGI configuration for levanta-requisitos project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'requisitos.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'levanta-requisitos.settings')
 
 application = get_wsgi_application()
