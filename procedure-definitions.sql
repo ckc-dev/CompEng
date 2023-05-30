@@ -21,7 +21,7 @@ BEGIN
   -- Calcular o valor total da venda
   SET total = 0;
 
-  -- Drop the temporary table if it already exists
+  -- Drop the temporary table if it exists
   DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
 
   -- Create the temporary table
@@ -32,20 +32,20 @@ BEGIN
 
   -- Insert the product IDs and quantities into the temporary table
   SET @sql = CONCAT('INSERT INTO temp_produto_quantidade (id_produto, quantidade) VALUES ');
-  SET @products = p_produtos;
-  SET @quantities = p_quantidades;
+  SET @products = REPLACE(p_produtos, ' ', ''); -- Remove spaces from the product string
+  SET @quantities = REPLACE(p_quantidades, ' ', ''); -- Remove spaces from the quantity string
   SET @delimiter = ',';
+  SET @product_count = LENGTH(REPLACE(@products, ',', ''));
   SET @i = 1;
 
-  WHILE @i <= LENGTH(@products) DO
+  WHILE @i <= @product_count DO
     SET @product_id = SUBSTRING_INDEX(SUBSTRING_INDEX(@products, @delimiter, @i), @delimiter, -1);
     SET @quantity = SUBSTRING_INDEX(SUBSTRING_INDEX(@quantities, @delimiter, @i), @delimiter, -1);
     -- Montar a query de inserção dos detalhes da venda
-    SET @sql = CONCAT(@sql, '(', @product_id, ', ', @quantity, ')');
-
-    IF @i < LENGTH(@products) THEN
+    IF @i > 1 THEN
       SET @sql = CONCAT(@sql, ', ');
     END IF;
+    SET @sql = CONCAT(@sql, '(', @product_id, ', ', @quantity, ')');
 
     SET @i = @i + 1;
   END WHILE;
@@ -60,35 +60,17 @@ BEGIN
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;
 
-  -- Drop the temporary table
-  DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
-
   -- Atualizar o valor total da venda na tabela Venda
   UPDATE Venda SET valor_total = @total WHERE id = id_venda;
 
   -- Inserir os detalhes da venda na tabela DetalhesVenda
-  SET @sql = CONCAT('INSERT INTO DetalhesVenda (id_venda, id_produto, quantidade_vendida, valor_unitario) VALUES ');
-  SET @products = p_produtos;
-  SET @quantities = p_quantidades;
-  SET @delimiter = ',';
-  SET @i = 1;
-
-  WHILE @i <= LENGTH(@products) DO
-    SET @product_id = SUBSTRING_INDEX(SUBSTRING_INDEX(@products, @delimiter, @i), @delimiter, -1);
-    SET @quantity = SUBSTRING_INDEX(SUBSTRING_INDEX(@quantities, @delimiter, @i), @delimiter, -1);
-    -- Montar a query de inserção dos detalhes da venda
-    SET @sql = CONCAT(@sql, '(', id_venda, ', ', @product_id, ', ', @quantity, ', (SELECT valor_unitario FROM Produtos WHERE id = ', @product_id, '))');
-
-    IF @i < LENGTH(@products) THEN
-      SET @sql = CONCAT(@sql, ', ');
-    END IF;
-
-    SET @i = @i + 1;
-  END WHILE;
-
+  SET @sql = CONCAT('INSERT INTO DetalhesVenda (id_venda, id_produto, quantidade_vendida, valor_unitario) SELECT ', id_venda, ', tpq.id_produto, tpq.quantidade, p.valor_unitario FROM temp_produto_quantidade tpq JOIN Produtos p ON p.id = tpq.id_produto');
   PREPARE stmt FROM @sql;
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;
+
+  -- Drop the temporary table
+  DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
 END //
 
 CREATE PROCEDURE ObterDetalhesVenda(IN venda_id INT)
