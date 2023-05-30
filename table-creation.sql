@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS vendas;
 USE vendas;
 
 CREATE TABLE IF NOT EXISTS Produtos (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   descricao VARCHAR(100),
   valor_unitario DECIMAL(10,2),
   comissao_percentual DECIMAL(5,2),
@@ -10,21 +10,21 @@ CREATE TABLE IF NOT EXISTS Produtos (
 );
 
 CREATE TABLE IF NOT EXISTS Cliente (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
-  celular VARCHAR(20),
+  telefone VARCHAR(20),
   email VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Vendedores (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100),
-  celular VARCHAR(20),
+  telefone VARCHAR(20),
   email VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Venda (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   id_cliente INT,
   id_vendedor INT,
   data_venda DATE,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Venda (
 );
 
 CREATE TABLE IF NOT EXISTS Comissoes (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   id_venda INT,
   id_produto INT,
   id_vendedor INT,
@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS Comissoes (
 );
 
 CREATE TABLE IF NOT EXISTS DetalhesVenda (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   id_venda INT,
   id_produto INT,
-  quantidade INT,
+  quantidade_vendida INT,
   valor_unitario DECIMAL(10, 2),
   FOREIGN KEY (id_venda) REFERENCES Venda(id),
   FOREIGN KEY (id_produto) REFERENCES Produtos(id)
