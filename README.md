@@ -9,4 +9,5 @@ Run the scripts in the following order:
 2. `data-insertion`
 3. `procedure-definition`
 4. `trigger-definition`
-5. `trigger-calls`
+5. `data-insertion-procedure-calls`
+6. `data-report-procedure-calls`
