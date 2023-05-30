@@ -21,16 +21,6 @@ BEGIN
   DECLARE total DECIMAL(10, 2);   -- Variável para armazenar o valor total da venda
   DECLARE id_venda INT;           -- Variável para armazenar o ID da venda
 
-  -- Inserir nova venda na tabela Venda
-  INSERT INTO Venda (id_cliente, id_vendedor, data_venda, valor_total)
-  VALUES (p_id_cliente, p_id_vendedor, p_data_venda, 0);
-
-  -- Obter o ID da venda inserida
-  SET id_venda = LAST_INSERT_ID();
-
-  -- Calcular o valor total da venda
-  SET total = 0;
-
   -- Drop the temporary table if it exists
   DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
 
@@ -39,6 +29,13 @@ BEGIN
     id_produto INT,
     quantidade INT
   );
+
+  -- Inserir nova venda na tabela Venda
+  INSERT INTO Venda (id_cliente, id_vendedor, data_venda, valor_total)
+  VALUES (p_id_cliente, p_id_vendedor, p_data_venda, 0);
+
+  -- Obter o ID da venda inserida
+  SET id_venda = LAST_INSERT_ID();
 
   -- Insert the product IDs and quantities into the temporary table
   SET @sql = CONCAT('INSERT INTO temp_produto_quantidade (id_produto, quantidade) VALUES ');
@@ -65,13 +62,14 @@ BEGIN
   DEALLOCATE PREPARE stmt;
 
   -- Calcular o valor total da venda usando a tabela temporária
-  SET @sql = CONCAT('SELECT SUM(p.valor_unitario * tpq.quantidade) INTO @total FROM Produtos p JOIN temp_produto_quantidade tpq ON p.id = tpq.id_produto');
-  PREPARE stmt FROM @sql;
-  EXECUTE stmt;
-  DEALLOCATE PREPARE stmt;
+  SET total = (
+    SELECT SUM(p.valor_unitario * tpq.quantidade)
+    FROM Produtos p
+    JOIN temp_produto_quantidade tpq ON p.id = tpq.id_produto
+  );
 
   -- Atualizar o valor total da venda na tabela Venda
-  UPDATE Venda SET valor_total = @total WHERE id = id_venda;
+  UPDATE Venda SET valor_total = total WHERE id = id_venda;
 
   -- Inserir os detalhes da venda na tabela DetalhesVenda
   SET @sql = CONCAT('INSERT INTO DetalhesVenda (id_venda, id_produto, quantidade_vendida, valor_unitario) SELECT ', id_venda, ', tpq.id_produto, tpq.quantidade, p.valor_unitario FROM temp_produto_quantidade tpq JOIN Produtos p ON p.id = tpq.id_produto');
@@ -88,11 +86,11 @@ BEGIN
   SELECT
     c.nome AS "Nome do Cliente",
     c.email AS "E-mail do Cliente",
-    c.celular AS "Celular do Cliente",
-    dv.quantidade AS "Quantidade do Item",
+    c.telefone AS "Telefone do Cliente",
+    dv.quantidade_vendida AS "Quantidade do Item",
     p.descricao AS "Descrição do Produto",
     p.valor_unitario AS "Valor do Produto",
-    (dv.quantidade * p.valor_unitario) AS "Subtotal do Item",
+    (dv.quantidade_vendida * p.valor_unitario) AS "Subtotal do Item",
     v.valor_total AS "Valor Total da Compra"
   FROM Venda v
   JOIN Cliente c ON v.id_cliente = c.id
@@ -109,30 +107,36 @@ BEGIN
   DECLARE mes INT;
   DECLARE total_vendas DECIMAL(10, 2);
   DECLARE total_comissao DECIMAL(10, 2);
+  DECLARE temp_table_name VARCHAR(100) DEFAULT 'RelatorioVendas';
 
   -- Cursor para percorrer as vendas do vendedor
   DECLARE vendas_cursor CURSOR FOR
-    SELECT MONTH(data_venda), valor_total, comissao
+    SELECT MONTH(data_venda), SUM(valor_total)
     FROM Venda
-    WHERE id_vendedor = vendedor_id;
+    WHERE id_vendedor = vendedor_id
+    GROUP BY MONTH(data_venda);
 
   -- Variável temporária para armazenar os resultados de cada venda
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET @finished = 1;
 
   -- Verificar e excluir a tabela temporária existente
-  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'RelatorioVendas') THEN
-    DROP TABLE RelatorioVendas;
-  END IF;
+  SET @sql = CONCAT('DROP TABLE IF EXISTS ', temp_table_name);
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
 
   -- Criação da tabela temporária para armazenar o relatório
-  CREATE TEMPORARY TABLE RelatorioVendas (
+  SET @sql = CONCAT('CREATE TEMPORARY TABLE ', temp_table_name, ' (
     vendedor_nome VARCHAR(100),
     vendedor_email VARCHAR(100),
     vendedor_telefone VARCHAR(20),
     mes INT,
-    total_vendas DECIMAL(10, 2),
-    total_comissao DECIMAL(10, 2)
-  );
+    valor_vendas DECIMAL(10, 2),
+    valor_comissao DECIMAL(10, 2)
+  )');
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
 
   -- Obter os dados do vendedor
   SELECT nome, email, telefone INTO vendedor_nome, vendedor_email, vendedor_telefone
@@ -141,35 +145,55 @@ BEGIN
 
   SET total_vendas = 0;
   SET total_comissao = 0;
+  SET @finished = 0; -- Reset the @finished variable
 
   OPEN vendas_cursor;
 
   -- Loop pelas vendas do vendedor
   vendas_loop: LOOP
-    FETCH vendas_cursor INTO mes, total_vendas, total_comissao;
+    FETCH vendas_cursor INTO mes, total_vendas;
 
     IF @finished = 1 THEN
       LEAVE vendas_loop;
     END IF;
 
-    INSERT INTO RelatorioVendas (vendedor_nome, vendedor_email, vendedor_telefone, mes, total_vendas, total_comissao)
-    VALUES (vendedor_nome, vendedor_email, vendedor_telefone, mes, total_vendas, total_comissao);
+    -- Cálculo da comissão
+    SET total_comissao = (
+      SELECT SUM(c.valor_comissao)
+      FROM Comissoes c
+      JOIN Venda v ON c.id_venda = v.id
+      WHERE MONTH(v.data_venda) = mes
+    );
+
+    SET @sql = CONCAT('INSERT INTO ', temp_table_name, ' (vendedor_nome, vendedor_email, vendedor_telefone, mes, valor_vendas, valor_comissao) VALUES (',
+                      QUOTE(vendedor_nome), ', ', QUOTE(vendedor_email), ', ', QUOTE(vendedor_telefone), ', ', mes, ', ', total_vendas, ', ', total_comissao, ')');
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
   END LOOP vendas_loop;
 
   CLOSE vendas_cursor;
 
   -- Seleção dos resultados formatados
-  SELECT
+  SET @sql = CONCAT('SELECT
     vendedor_nome AS "Nome do Vendedor",
     vendedor_email AS "E-mail do Vendedor",
     vendedor_telefone AS "Telefone do Vendedor",
     mes AS "Mês",
-    total_vendas AS "Valor Total das Vendas",
-    total_comissao AS "Valor Total da Comissão"
-  FROM RelatorioVendas;
+    SUM(valor_vendas) AS "Valor Total das Vendas",
+    SUM(valor_comissao) AS "Valor Total da Comissão"
+  FROM ', temp_table_name, '
+  GROUP BY vendedor_nome, vendedor_email, vendedor_telefone, mes');
+
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
 
   -- Limpeza da tabela temporária
-  DROP TABLE RelatorioVendas;
+  SET @sql = CONCAT('DROP TABLE IF EXISTS ', temp_table_name);
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
 END //
 
 DELIMITER ;
