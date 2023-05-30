@@ -20,31 +20,72 @@ BEGIN
 
   -- Calcular o valor total da venda
   SET total = 0;
-  -- Consultar o valor unitário dos produtos selecionados e somar o valor total
-  SET @sql = CONCAT('SELECT SUM(valor_unitario * quantidade) INTO @total FROM Produtos WHERE id IN (', p_produtos, ')');
+
+  -- Drop the temporary table if it already exists
+  DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
+
+  -- Create the temporary table
+  CREATE TEMPORARY TABLE temp_produto_quantidade (
+    id_produto INT,
+    quantidade INT
+  );
+
+  -- Insert the product IDs and quantities into the temporary table
+  SET @sql = CONCAT('INSERT INTO temp_produto_quantidade (id_produto, quantidade) VALUES ');
+  SET @products = p_produtos;
+  SET @quantities = p_quantidades;
+  SET @delimiter = ',';
+  SET @i = 1;
+
+  WHILE @i <= LENGTH(@products) DO
+    SET @product_id = SUBSTRING_INDEX(SUBSTRING_INDEX(@products, @delimiter, @i), @delimiter, -1);
+    SET @quantity = SUBSTRING_INDEX(SUBSTRING_INDEX(@quantities, @delimiter, @i), @delimiter, -1);
+    -- Montar a query de inserção dos detalhes da venda
+    SET @sql = CONCAT(@sql, '(', @product_id, ', ', @quantity, ')');
+
+    IF @i < LENGTH(@products) THEN
+      SET @sql = CONCAT(@sql, ', ');
+    END IF;
+
+    SET @i = @i + 1;
+  END WHILE;
+
   PREPARE stmt FROM @sql;
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;
+
+  -- Calcular o valor total da venda usando a tabela temporária
+  SET @sql = CONCAT('SELECT SUM(p.valor_unitario * tpq.quantidade) INTO @total FROM Produtos p JOIN temp_produto_quantidade tpq ON p.id = tpq.id_produto');
+  PREPARE stmt FROM @sql;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
+
+  -- Drop the temporary table
+  DROP TEMPORARY TABLE IF EXISTS temp_produto_quantidade;
 
   -- Atualizar o valor total da venda na tabela Venda
   UPDATE Venda SET valor_total = @total WHERE id = id_venda;
 
   -- Inserir os detalhes da venda na tabela DetalhesVenda
-  SET @sql = CONCAT('INSERT INTO DetalhesVenda (id, id_venda, id_produto, quantidade, valor_unitario) VALUES ');
+  SET @sql = CONCAT('INSERT INTO DetalhesVenda (id_venda, id_produto, quantidade_vendida, valor_unitario) VALUES ');
   SET @products = p_produtos;
   SET @quantities = p_quantidades;
   SET @delimiter = ',';
   SET @i = 1;
+
   WHILE @i <= LENGTH(@products) DO
     SET @product_id = SUBSTRING_INDEX(SUBSTRING_INDEX(@products, @delimiter, @i), @delimiter, -1);
     SET @quantity = SUBSTRING_INDEX(SUBSTRING_INDEX(@quantities, @delimiter, @i), @delimiter, -1);
     -- Montar a query de inserção dos detalhes da venda
-    SET @sql = CONCAT(@sql, '(', @i, ', ', id_venda, ', ', @product_id, ', ', @quantity, ', (SELECT valor_unitario FROM Produtos WHERE id = ', @product_id, '))');
+    SET @sql = CONCAT(@sql, '(', id_venda, ', ', @product_id, ', ', @quantity, ', (SELECT valor_unitario FROM Produtos WHERE id = ', @product_id, '))');
+
     IF @i < LENGTH(@products) THEN
       SET @sql = CONCAT(@sql, ', ');
     END IF;
+
     SET @i = @i + 1;
   END WHILE;
+
   PREPARE stmt FROM @sql;
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;
@@ -85,6 +126,11 @@ BEGIN
 
   -- Variável temporária para armazenar os resultados de cada venda
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET @finished = 1;
+
+  -- Verificar e excluir a tabela temporária existente
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'RelatorioVendas') THEN
+    DROP TABLE RelatorioVendas;
+  END IF;
 
   -- Criação da tabela temporária para armazenar o relatório
   CREATE TEMPORARY TABLE RelatorioVendas (
