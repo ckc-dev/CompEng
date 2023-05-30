@@ -1,5 +1,15 @@
 DELIMITER //
 
+CREATE PROCEDURE AtualizarQuantidadeProduto(
+  IN p_produto_id INT,
+  IN p_quantidade_vendida INT
+)
+BEGIN
+  UPDATE Produtos
+  SET quantidade = quantidade - p_quantidade_vendida
+  WHERE id = p_produto_id;
+END //
+
 CREATE PROCEDURE RealizarVenda (
   IN p_id_cliente INT,            -- ID do cliente associado à venda
   IN p_id_vendedor INT,           -- ID do vendedor responsável pela venda
