@@ -68,4 +68,57 @@ BEGIN
   WHERE v.id = venda_id;
 END //
 
+CREATE PROCEDURE ObterRelatorioVendas(IN vendedor_id INT)
+BEGIN
+  DECLARE vendedor_nome VARCHAR(100);
+  DECLARE mes INT;
+  DECLARE total_vendas DECIMAL(10, 2);
+  DECLARE total_comissao DECIMAL(10, 2);
+
+  -- Cursor para percorrer as vendas do vendedor
+  DECLARE vendas_cursor CURSOR FOR
+    SELECT MONTH(data_venda), valor_total, comissao
+    FROM Venda
+    WHERE id_vendedor = vendedor_id;
+
+  -- Variável temporária para armazenar os resultados de cada venda
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET @finished = 1;
+
+  -- Criação da tabela temporária para armazenar o relatório
+  CREATE TEMPORARY TABLE RelatorioVendas (
+    Vendedor VARCHAR(100),
+    Mes INT,
+    TotalVendas DECIMAL(10, 2),
+    TotalComissao DECIMAL(10, 2)
+  );
+
+  -- Obter o nome do vendedor
+  SELECT nome INTO vendedor_nome FROM Vendedores WHERE id = vendedor_id;
+
+  SET total_vendas = 0;
+  SET total_comissao = 0;
+
+  OPEN vendas_cursor;
+
+  -- Loop pelas vendas do vendedor
+  vendas_loop: LOOP
+    FETCH vendas_cursor INTO mes, total_vendas, total_comissao;
+
+    IF @finished = 1 THEN
+      LEAVE vendas_loop;
+    END IF;
+
+    INSERT INTO RelatorioVendas (Vendedor, Mes, TotalVendas, TotalComissao)
+    VALUES (vendedor_nome, mes, total_vendas, total_comissao);
+  END LOOP vendas_loop;
+
+  CLOSE vendas_cursor;
+
+  -- Seleção dos resultados
+  SELECT * FROM RelatorioVendas;
+
+  -- Limpeza da tabela temporária
+  DROP TABLE RelatorioVendas;
+END //
+
 DELIMITER ;
