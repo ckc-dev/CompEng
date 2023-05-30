@@ -6,9 +6,11 @@ FOR EACH ROW
 BEGIN
   DECLARE valor_comissao DECIMAL(10, 2);
 
-  SELECT valor_unitario * comissao_percentual / 100 INTO valor_comissao
-  FROM Produtos
-  WHERE id = NEW.id_produto;
+  SELECT dv.quantidade_vendida * p.valor_unitario * p.comissao_percentual / 100 INTO valor_comissao
+  FROM Produtos p
+  JOIN DetalhesVenda dv on p.id = dv.id_produto
+  WHERE p.id = NEW.id_produto
+  LIMIT 1;
 
   INSERT INTO Comissoes (id_venda, id_vendedor, id_produto, valor_comissao)
   VALUES (NEW.id_venda, (SELECT id_vendedor FROM Venda WHERE id = NEW.id_venda), NEW.id_produto, valor_comissao);
