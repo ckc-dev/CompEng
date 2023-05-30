@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS vendas;
 USE vendas;
 
 CREATE TABLE IF NOT EXISTS Produtos (
-  id INT,
+  id INT PRIMARY KEY,
   descricao VARCHAR(100),
   valor_unitario DECIMAL(10,2),
   comissao_percentual DECIMAL(5,2),
@@ -10,21 +10,21 @@ CREATE TABLE IF NOT EXISTS Produtos (
 );
 
 CREATE TABLE IF NOT EXISTS Cliente (
-  id UID,
+  id INT PRIMARY KEY,
   nome VARCHAR(100),
   celular VARCHAR(20),
   email VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Vendedores (
-  id INT,
+  id INT PRIMARY KEY,
   nome VARCHAR(100),
   celular VARCHAR(20),
   email VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Venda (
-  id INT,
+  id INT PRIMARY KEY,
   id_cliente INT,
   id_vendedor INT,
   data_venda DATE,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Venda (
 );
 
 CREATE TABLE IF NOT EXISTS Comissoes (
-  id INT,
+  id INT PRIMARY KEY,
   id_venda INT,
   id_produto INT,
   id_vendedor INT,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Comissoes (
 );
 
 CREATE TABLE IF NOT EXISTS DetalhesVenda (
-  id INT,
+  id INT PRIMARY KEY,
   id_venda INT,
   id_produto INT,
   quantidade INT,
