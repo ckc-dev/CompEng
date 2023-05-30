@@ -1,0 +1,53 @@
+INSERT INTO Produtos (id, descricao, valor_unitario, comissao_percentual, quantidade)
+VALUES
+  (1, 'Camiseta estampada', 29.99, 10.00, 100),
+  (2, 'Calça jeans rasgada', 49.99, 12.50, 50),
+  (3, 'Tênis esportivo', 79.99, 15.00, 30),
+  (4, 'Jaqueta de couro sintético', 89.99, 10.00, 20),
+  (5, 'Vestido floral', 39.99, 8.00, 80),
+  (6, 'Sapato social', 59.99, 12.50, 40),
+  (7, 'Blusa de frio com capuz', 34.99, 8.00, 60),
+  (8, 'Bermuda estampada', 24.99, 6.00, 70),
+  (9, 'Sandália de praia', 19.99, 5.00, 90),
+  (10, 'Óculos de sol', 14.99, 3.00, 100),
+  (11, 'Pulseira de prata', 9.99, 2.50, 200),
+  (12, 'Relógio digital', 39.99, 10.00, 30),
+  (13, 'Boné trucker', 19.99, 4.50, 80),
+  (14, 'Colar de pérolas', 29.99, 7.50, 40),
+  (15, 'Chapéu de palha', 24.99, 6.00, 60),
+  (16, 'Bolsa de couro', 69.99, 10.00, 25),
+  (17, 'Calça legging', 34.99, 8.00, 50),
+  (18, 'Blazer formal', 79.99, 12.50, 20),
+  (19, 'Meia colorida', 9.99, 2.00, 100),
+  (20, 'Cinto de couro', 14.99, 3.50, 70);
+
+INSERT INTO Cliente (id, nome, celular, email)
+VALUES
+  (1, 'João Silva', '(11) 9999-1111', 'joao.silva@example.com'),
+  (2, 'Maria Santos', '(22) 8888-2222', 'maria.santos@example.com'),
+  (3, 'Pedro Oliveira', '(33) 7777-3333', 'pedro.oliveira@example.com'),
+  (4, 'Ana Souza', '(44) 6666-4444', 'ana.souza@example.com'),
+  (5, 'Lucas Pereira', '(55) 5555-5555', 'lucas.pereira@example.com'),
+  (6, 'Carolina Rodrigues', '(66) 4444-6666', 'carolina.rodrigues@example.com'),
+  (7, 'Fernando Almeida', '(77) 3333-7777', 'fernando.almeida@example.com'),
+  (8, 'Mariana Costa', '(88) 2222-8888', 'mariana.costa@example.com'),
+  (9, 'Rafael Santos', '(99) 1111-9999', 'rafael.santos@example.com'),
+  (10, 'Camila Lima', '(10) 0000-1010', 'camila.lima@example.com'),
+  (11, 'Gustavo Ferreira', '(20) 1111-2020', 'gustavo.ferreira@example.com'),
+  (12, 'Amanda Rocha', '(30) 2222-3030', 'amanda.rocha@example.com'),
+  (13, 'Rodrigo Gomes', '(40) 3333-4040', 'rodrigo.gomes@example.com'),
+  (14, 'Larissa Oliveira', '(50) 4444-5050', 'larissa.oliveira@example.com'),
+  (15, 'Marcos Silva', '(60) 5555-6060', 'marcos.silva@example.com'),
+  (16, 'Isabela Santos', '(70) 6666-7070', 'isabela.santos@example.com'),
+  (17, 'Diego Souza', '(80) 7777-8080', 'diego.souza@example.com'),
+  (18, 'Laura Pereira', '(90) 8888-9090', 'laura.pereira@example.com'),
+  (19, 'Ricardo Almeida', '(00) 9999-0000', 'ricardo.almeida@example.com'),
+  (20, 'Patrícia Costa', '(11) 1111-1212', 'patricia.costa@example.com');
+
+INSERT INTO Vendedores (id, nome, celular, email)
+VALUES
+  (1, 'José Oliveira', '(11) 9999-1111', 'jose.oliveira@example.com'),
+  (2, 'Ana Santos', '(22) 8888-2222', 'ana.santos@example.com'),
+  (3, 'Carlos Silva', '(33) 7777-3333', 'carlos.silva@example.com'),
+  (4, 'Patrícia Costa', '(44) 6666-4444', 'patricia.costa@example.com'),
+  (5, 'Rafaela Mendes', '(55) 5555-5555', 'rafaela.mendes@example.com');
