@@ -71,6 +71,8 @@ END //
 CREATE PROCEDURE ObterRelatorioVendas(IN vendedor_id INT)
 BEGIN
   DECLARE vendedor_nome VARCHAR(100);
+  DECLARE vendedor_email VARCHAR(100);
+  DECLARE vendedor_telefone VARCHAR(20);
   DECLARE mes INT;
   DECLARE total_vendas DECIMAL(10, 2);
   DECLARE total_comissao DECIMAL(10, 2);
@@ -86,14 +88,18 @@ BEGIN
 
   -- Criação da tabela temporária para armazenar o relatório
   CREATE TEMPORARY TABLE RelatorioVendas (
-    Vendedor VARCHAR(100),
-    Mes INT,
-    TotalVendas DECIMAL(10, 2),
-    TotalComissao DECIMAL(10, 2)
+    vendedor_nome VARCHAR(100),
+    vendedor_email VARCHAR(100),
+    vendedor_telefone VARCHAR(20),
+    mes INT,
+    total_vendas DECIMAL(10, 2),
+    total_comissao DECIMAL(10, 2)
   );
 
-  -- Obter o nome do vendedor
-  SELECT nome INTO vendedor_nome FROM Vendedores WHERE id = vendedor_id;
+  -- Obter os dados do vendedor
+  SELECT nome, email, telefone INTO vendedor_nome, vendedor_email, vendedor_telefone
+  FROM Vendedores
+  WHERE id = vendedor_id;
 
   SET total_vendas = 0;
   SET total_comissao = 0;
@@ -108,14 +114,21 @@ BEGIN
       LEAVE vendas_loop;
     END IF;
 
-    INSERT INTO RelatorioVendas (Vendedor, Mes, TotalVendas, TotalComissao)
-    VALUES (vendedor_nome, mes, total_vendas, total_comissao);
+    INSERT INTO RelatorioVendas (vendedor_nome, vendedor_email, vendedor_telefone, mes, total_vendas, total_comissao)
+    VALUES (vendedor_nome, vendedor_email, vendedor_telefone, mes, total_vendas, total_comissao);
   END LOOP vendas_loop;
 
   CLOSE vendas_cursor;
 
-  -- Seleção dos resultados
-  SELECT * FROM RelatorioVendas;
+  -- Seleção dos resultados formatados
+  SELECT
+    vendedor_nome AS "Nome do Vendedor",
+    vendedor_email AS "E-mail do Vendedor",
+    vendedor_telefone AS "Telefone do Vendedor",
+    mes AS "Mês",
+    total_vendas AS "Valor Total das Vendas",
+    total_comissao AS "Valor Total da Comissão"
+  FROM RelatorioVendas;
 
   -- Limpeza da tabela temporária
   DROP TABLE RelatorioVendas;
