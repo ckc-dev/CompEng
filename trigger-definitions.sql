@@ -14,13 +14,34 @@ BEGIN
   VALUES (NEW.id_venda, (SELECT id_vendedor FROM Venda WHERE id = NEW.id_venda), NEW.id_produto, valor_comissao);
 END //
 
-CREATE TRIGGER RemoverEstoque
-AFTER INSERT ON DetalhesVenda
+CREATE TRIGGER AtualizarQuantidadeProdutosPosVenda
+AFTER UPDATE ON Venda
 FOR EACH ROW
 BEGIN
-  UPDATE Produtos
-  SET quantidade = quantidade - 1
-  WHERE id = NEW.id_produto;
+  DECLARE produto_id INT;
+  DECLARE quantidade_vendida INT;
+  DECLARE done INT DEFAULT FALSE;
+
+  DECLARE cur CURSOR FOR
+    SELECT id_produto, quantidade_vendida
+    FROM DetalhesVenda
+    WHERE id_venda = NEW.id;
+
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur;
+
+  read_loop: LOOP
+    FETCH cur INTO produto_id, quantidade_vendida;
+
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+
+    CALL AtualizarQuantidadeProduto(produto_id, quantidade_vendida);
+  END LOOP;
+
+  CLOSE cur;
 END //
 
 DELIMITER ;
