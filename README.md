@@ -1,4 +1,4 @@
-# [LevantaRequisitos][1]
+# LevantaRequisitos
 
 This is a simple weekend project used as an aid for a complex university project. We, a group of students, needed to raise different requirements for a project in our Software Engineering class. Time went on and nobody decided on how the requirements would be divided, so my proposed solution was to create a small web application where each one picks which requirements they want to do, which are then no longer available for the others. Thus, the work is not divided in a biased way, only those who arrive first can choose to do the ones they prefer.
 
@@ -75,8 +75,4 @@ Please open an issue to discuss what you'd like to change before making major ch
 
 Please make sure to update and/or add appropriate tests when applicable.
 
-This project is licensed under the [GPL-3.0 License][3].
-
-[1]: https://github.com/ckc-dev/LevantaRequisitos/
-[2]: https://levanta-requisitos.herokuapp.com/
-[3]: https://github.com/ckc-dev/LevantaRequisitos/blob/main/LICENSE
+This project is licensed under the [GPL-3.0 License](./LICENSE).
