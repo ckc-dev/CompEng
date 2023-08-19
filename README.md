@@ -1,4 +1,4 @@
-# [1Phone - The Sustainable Smartphone](https://github.com/ckc-dev/PI-1Phone)
+# 1Phone - The Sustainable Smartphone
 
 "1Phone" is an interdisciplinary school project between the computer and manufacturing engineering courses, carried out in the second semester and aiming to idealize a product that implements the areas of both courses and follows the principles of a circular economy. 1Phone is an open-source, sustainable smartphone with a modular concept that can be easily repaired or upgraded, with the aim of reducing the amount of e-waste dumped every year.
 
