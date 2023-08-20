@@ -21,7 +21,7 @@ This is the repository for the product concept website.
 ## File tree
 
 ```
-PI-1Phone
+1Phone
 ┣ static                    Contains static files.
 ┃ ┣ images                  Contains images.
 ┃ ┃ ┣ 1phone-back.png       A photo of an 1Phone from the back.
