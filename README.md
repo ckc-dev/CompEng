@@ -98,4 +98,4 @@ Please open an issue to discuss what you'd like to change before making major ch
 
 Please make sure to update and/or add appropriate tests when applicable.
 
-This project is licensed under the [GPL-3.0 License](https://github.com/ckc-dev/PI-1Phone/blob/main/LICENSE).
+This project is licensed under the [GPL-3.0 License](./LICENSE).
