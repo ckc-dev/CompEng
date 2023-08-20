@@ -28,7 +28,7 @@ LevantaRequisitos
  ┣ base/                `base` app.
  ┃ ┣ migrations/        `base` app migrations.
  ┃ ┃ ┣ 0001_initial.py  Initial migration.
- | ┃ ┗ __init__.py      Treat this directory as a package.
+ ┃ ┃ ┗ __init__.py      Treat this directory as a package.
  ┃ ┣ templates/         `base` app templates.
  ┃ ┃ ┗ base/            `base` app templates.
  ┃ ┃   ┣ index.html     Template for index page.
