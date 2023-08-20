@@ -6,9 +6,6 @@ name = "pypi"
 [packages]
 django = "*"
 django-bootstrap5 = "*"
-gunicorn = "*"
-psycopg2-binary = "*"
-whitenoise = "*"
 
 [dev-packages]
 

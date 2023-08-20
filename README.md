@@ -52,14 +52,13 @@ LevantaRequisitos
  ┣ LICENSE              Project license.
  ┣ Pipfile              Contains information about dependencies.
  ┣ Pipfile.lock         Contains information about dependencies.
- ┣ Procfile             Used for Heroku deployment.
  ┣ README.md            Project's README.
  ┗ manage.py            Django's CLI utility tool.
 ```
 
 # Usage
 
-If using my instance, i.e.: you are one of my group members, simply go to the [Heroku deploy][2] and fill the form. That's it.
+If using my instance, i.e.: you are one of my group members, simply go to our deployed instance (you have the URL) and fill the form. That's it.
 
 If not, you will have to deploy your own instance and manually create references for the requirements, using Django's admin page. Then _your_ group members can go to your deployment page and fill the form.
 

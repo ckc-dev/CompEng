@@ -11,37 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import re
 from pathlib import Path
-
-# Get database credentials from Heroku's rotating URI.
-HEROKU_POSTGRESQL_URI_REGEX = re.compile(r"""
-    postgres:\/\/   # Match "postgres://" once.
-    (?P<username>   # CAPTURE GROUP "username" | Open capture group.
-        [^:]+       # Match any character that is not ":", between 1 and ∞
-                    # times.
-    )               # CAPTURE GROUP "username" | Close capture group.
-    :               # Match ":" once.
-    (?P<password>   # CAPTURE GROUP "password" | Open capture group.
-        [^@]+       # Match any character that is not "@", between 1 and ∞
-                    # times.
-    )               # CAPTURE GROUP "password" | Close capture group.
-    @               # Match "@" once.
-    (?P<host>       # CAPTURE GROUP "host" | Open capture group.
-        [^:]+       # Match any character that is not ":", between 1 and ∞
-                    # times.
-    )               # CAPTURE GROUP "host" | Close capture group.
-    :               # Match ":" once.
-    (?P<port>       # CAPTURE GROUP "port" | Open capture group.
-        \d{4}       # Match any character that is a digit, 4 times.
-    )               # CAPTURE GROUP "port" | Close capture group.
-    \/              # Match "/" once.
-    (?P<name>       # CAPTURE GROUP "name" | Open capture group.
-        .+          # Match any character, between 1 and ∞ times.
-    )               # CAPTURE GROUP "name" | Close capture group.""", re.VERBOSE)
-HEROKU_POSTGRESQL_URI = os.getenv('DATABASE_URL')
-MATCH = HEROKU_POSTGRESQL_URI_REGEX.fullmatch(HEROKU_POSTGRESQL_URI)
-DATABASE_CREDENTIALS = MATCH.groupdict()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,7 +42,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'levanta-requisitos.urls'
@@ -101,12 +70,8 @@ WSGI_APPLICATION = 'levanta-requisitos.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASE_CREDENTIALS['name'],
-        'HOST': DATABASE_CREDENTIALS['host'],
-        'PORT': DATABASE_CREDENTIALS['port'],
-        'USER': DATABASE_CREDENTIALS['username'],
-        'PASSWORD': DATABASE_CREDENTIALS['password'],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
