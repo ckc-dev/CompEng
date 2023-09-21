@@ -1,6 +1,6 @@
 # Matrix Multiplication
 
-This repository contains a Java program developed for the Mobile Programming subject. The program fills a 6x5 matrix, performs matrix multiplication with a user-defined number, and displays both the initial and resulting matrices.
+This repository contains a Java program developed for the Mobile Development subject. The program fills a 6x5 matrix, performs matrix multiplication with a user-defined number, and displays both the initial and resulting matrices.
 
 ## Table of Contents
 
