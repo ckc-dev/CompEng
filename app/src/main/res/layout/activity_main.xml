@@ -1,18 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="P1 - Questão 2"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Vector 1 -->
+    <LinearLayout
+        android:id="@+id/vector1Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title2"
+        app:layout_constraintWidth_default="wrap">
+
+        <TextView
+            android:id="@+id/vector1Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Vetor 1: "
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Vector 2 -->
+    <LinearLayout
+        android:id="@+id/vector2Layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vector1Layout"
+        app:layout_constraintWidth_default="wrap">
+
+        <TextView
+            android:id="@+id/vector2Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Vetor 2: "
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Initial Matrix -->
+    <LinearLayout
+        android:id="@+id/initialMatrixLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vector2Layout">
+
+        <TextView
+            android:id="@+id/initialMatrixLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Matriz Inicial"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:id="@+id/initialMatrixTableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TableLayout>
+
+    </LinearLayout>
+
+    <!-- Resulting Matrix -->
+    <LinearLayout
+        android:id="@+id/resultingMatrixLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vector2Layout">
+
+        <TextView
+            android:id="@+id/resultingMatrixLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Matriz Resultante"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:id="@+id/resultingMatrixTableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TableLayout>
+
+    </LinearLayout>
+
+    <!-- Questions and Answers -->
+    <LinearLayout
+        android:id="@+id/questionsAnswersLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16sp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/initialMatrixLayout">
+
+        <!-- Question 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. O produto do maior elemento do primeiro vetor e do menor elemento do segundo vetor. (Este resultado é adicionado aos elementos da matriz, criando uma segunda matriz resultante)" />
+
+            <TextView
+                android:id="@+id/answer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Question 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. A soma dos elementos pares em cada linha da matriz resultante." />
+
+            <TextView
+                android:id="@+id/answer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Question 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. A contagem de elementos entre 1 e 5 em cada coluna da matriz resultante." />
+
+            <TextView
+                android:id="@+id/answer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Question 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. A contagem de números pares em ambos vetores e matrizes." />
+
+            <TextView
+                android:id="@+id/answer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
