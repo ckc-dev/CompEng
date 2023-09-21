@@ -2,12 +2,10 @@ package com.example.p1q2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -29,40 +27,12 @@ public class MainActivity extends AppCompatActivity {
         int[] vector2 = Utils.generateVector(10);
         int[][] initialMatrix = Utils.generateMatrix(4, 3);
 
-        // Populate Vector 1 LinearLayout
-        for (int i = 0; i < vector1.length; i++) {
-            TextView textView = new TextView(this);
-            textView.setText(String.valueOf(vector1[i]));
-            if (i < vector1.length - 1) {
-                textView.append(", "); // Add comma for all but the last element
-            }
-            vector1Layout.addView(textView);
-        }
-
-        // Populate Vector 2 LinearLayout
-        for (int i = 0; i < vector2.length; i++) {
-            TextView textView = new TextView(this);
-            textView.setText(String.valueOf(vector2[i]));
-            if (i < vector2.length - 1) {
-                textView.append(", "); // Add comma for all but the last element
-            }
-            vector2Layout.addView(textView);
-        }
+        // Populate Vector Layouts
+        populateVectorLayout(vector1Layout, vector1);
+        populateVectorLayout(vector2Layout, vector2);
 
         // Populate initial matrix TableLayout
-        for (int[] ints : initialMatrix) {
-            TableRow row = new TableRow(this);
-            for (int j = 0; j < ints.length; j++) {
-                TextView textView = new TextView(this);
-                textView.setText(String.valueOf(ints[j]));
-                textView.setPadding(16, 0, 16, 0); // Add padding for better formatting
-                if (j < ints.length - 1) {
-                    textView.append(", "); // Add comma for all but the last element
-                }
-                row.addView(textView);
-            }
-            initialMatrixTableLayout.addView(row);
-        }
+        populateMatrixTableLayout(initialMatrixTableLayout, initialMatrix);
 
         // Calculate the product of the largest element in Vector 1 and the smallest element in Vector 2
         int product = Utils.findLargestElement(vector1) * Utils.findSmallestElement(vector2);
@@ -70,60 +40,66 @@ public class MainActivity extends AppCompatActivity {
         // Calculate the Resulting Matrix by adding the product to each element of the Initial Matrix
         int[][] resultingMatrix = Utils.addValueToMatrix(initialMatrix, product);
 
-        /* note from ckc: My mistake, I read the requirements wrong and thought I had to do the
-                          scalar product. Then I realized it's not the case. Whoops. I'll leave it
-                          as an option either way. */
-        // Calculate the Resulting Matrix by multiplying the Initial Matrix by the product
-        // int[][] resultingMatrix = Utils.multiplyMatrixByScalar(initialMatrix, product);
-
         // Populate Resulting Matrix TableLayout
-        for (int i = 0; i < resultingMatrix.length; i++) {
-            TableRow row = new TableRow(this);
-            for (int j = 0; j < resultingMatrix[i].length; j++) {
-                TextView textView = new TextView(this);
-                textView.setText(String.valueOf(resultingMatrix[i][j]));
-                textView.setPadding(16, 0, 16, 0); // Add padding for better formatting
-                if (j < resultingMatrix[i].length - 1) {
-                    textView.append(", "); // Add comma for all but the last element
-                }
-                row.addView(textView);
-            }
-            resultingMatrixTableLayout.addView(row);
-        }
+        populateMatrixTableLayout(resultingMatrixTableLayout, resultingMatrix);
 
         // Populate answers for the questions
         List<String> answers = calculateAnswers(vector1, vector2, initialMatrix, resultingMatrix);
 
-        // Find the TextViews for answers by their IDs and set their text
-        TextView answer1 = findViewById(R.id.answer1);
-        answer1.setText(answers.get(0));
+        // Set the answers to TextViews
+        setAnswersToTextViews(answers);
+    }
 
-        TextView answer2 = findViewById(R.id.answer2);
-        answer2.setText(answers.get(1));
+    private void populateVectorLayout(LinearLayout layout, int[] vector) {
+        for (int i = 0; i < vector.length; i++) {
+            TextView textView = new TextView(this);
+            textView.setText(String.valueOf(vector[i]));
+            if (i < vector.length - 1) {
+                textView.append(", "); // Add comma for all but the last element
+            }
+            layout.addView(textView);
+        }
+    }
 
-        TextView answer3 = findViewById(R.id.answer3);
-        answer3.setText(answers.get(2));
-
-        TextView answer4 = findViewById(R.id.answer4);
-        answer4.setText(answers.get(3));
+    private void populateMatrixTableLayout(TableLayout layout, int[][] matrix) {
+        for (int[] rowValues : matrix) {
+            TableRow row = new TableRow(this);
+            for (int value : rowValues) {
+                TextView textView = new TextView(this);
+                textView.setText(String.valueOf(value));
+                textView.setPadding(16, 0, 16, 0); // Add padding for better formatting
+                if (value != rowValues[rowValues.length - 1]) {
+                    textView.append(", "); // Add comma for all but the last element
+                }
+                row.addView(textView);
+            }
+            layout.addView(row);
+        }
     }
 
     private List<String> calculateAnswers(int[] vector1, int[] vector2, int[][] initialMatrix, int[][] resultingMatrix) {
         List<String> answers = new ArrayList<>();
-
-        // Calculate and add answers to the list
         int product = Utils.findLargestElement(vector1) * Utils.findSmallestElement(vector2);
         answers.add(String.valueOf(product));
 
         List<Integer> sumOfEvenElements = Utils.calculateSumOfEvenElementsInEachRow(resultingMatrix);
         answers.add(sumOfEvenElements.toString());
 
-        List<Integer> countElementsBetween1And5 = Utils.countElementsBetween1And5(resultingMatrix);
+        List<Integer> countElementsBetween1And5 = Utils.countElementsInRangeInEachColumn(resultingMatrix, 1, 5);
         answers.add(countElementsBetween1And5.toString());
 
         int countEvenNumbers = Utils.countEvenNumbers(vector1, vector2, initialMatrix, resultingMatrix);
         answers.add(String.valueOf(countEvenNumbers));
-
         return answers;
+    }
+
+    private void setAnswersToTextViews(List<String> answers) {
+        int[] answerTextViewIds = {
+            R.id.answer1, R.id.answer2, R.id.answer3, R.id.answer4
+        };
+        for (int i = 0; i < answerTextViewIds.length && i < answers.size(); i++) {
+            TextView answerTextView = findViewById(answerTextViewIds[i]);
+            answerTextView.setText(answers.get(i));
+        }
     }
 }

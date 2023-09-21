@@ -31,9 +31,7 @@ public class Utils {
     public static int findLargestElement(int[] vector) {
         int max = Integer.MIN_VALUE;
         for (int num : vector) {
-            if (num > max) {
-                max = num;
-            }
+            max = Math.max(max, num);
         }
         return max;
     }
@@ -42,9 +40,7 @@ public class Utils {
     public static int findSmallestElement(int[] vector) {
         int min = Integer.MAX_VALUE;
         for (int num : vector) {
-            if (num < min) {
-                min = num;
-            }
+            min = Math.min(min, num);
         }
         return min;
     }
@@ -64,15 +60,14 @@ public class Utils {
         return sums;
     }
 
-
-    // Count the number of elements between 1 and 5 in each column of a matrix
-    public static List<Integer> countElementsBetween1And5(int[][] matrix) {
+    // Count the number of elements between min and max in each column of a matrix
+    public static List<Integer> countElementsInRangeInEachColumn(int[][] matrix, int min, int max) {
         List<Integer> counts = new ArrayList<>();
         for (int j = 0; j < matrix[0].length; j++) {
             int count = 0;
             for (int[] ints : matrix) {
                 int num = ints[j];
-                if (num >= 1 && num <= 5) {
+                if (num >= min && num <= max) {
                     count++;
                 }
             }
