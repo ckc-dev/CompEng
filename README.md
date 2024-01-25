@@ -37,6 +37,7 @@ Feel free to explore the individual branches for detailed project information, l
 ### 8th Semester
 - [Mobile Development: Matrix Multiplication](../../tree/s8-mobile_development-matrix_multiplication)
 - [Mobile Development: Numeric Operations](../../tree/s8-mobile_development-numeric_operations)
+- [Graphics Programming: render.py](../../tree/s8-graphics_programming-renderpy)
 
 ### 9th Semester
 - N/A
