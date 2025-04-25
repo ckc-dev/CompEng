@@ -13,36 +13,47 @@ Feel free to explore the individual branches for detailed project information, l
 ## Projects
 
 ### 1st Semester
+
 - N/A
 
 ### 2nd Semester
+
 - [Integrative Project: 1Phone](../../tree/s2-integrative_project-1phone)
 
 ### 3rd Semester
+
 - N/A
 
 ### 4th Semester
+
 - N/A
 
 ### 5th Semester
+
 - [Integrative Project: UnWaste](../../tree/s5-integrative_project-unwaste)
 - [Requirements Engineering: LevantaRequisitos](../../tree/s5-requirements_engineering-levanta_requisitos)
 
 ### 6th Semester
+
 - N/A
 
 ### 7th Semester
+
 - [Databases: Sales](../../tree/s7-databases-sales)
 
 ### 8th Semester
+
 - [Mobile Development: Matrix Multiplication](../../tree/s8-mobile_development-matrix_multiplication)
 - [Mobile Development: Numeric Operations](../../tree/s8-mobile_development-numeric_operations)
+- [Mobile Development: Parity Count](../../tree/s8-mobile_development-parity_count)
 - [Graphics Programming: render.py](../../tree/s8-graphics_programming-renderpy)
 
 ### 9th Semester
+
 - N/A
 
 ### 10th Semester
+
 - [Undergraduate Thesis: Thesis](../../tree/s10-undergraduate_thesis-thesis)
 
 # Contributing
