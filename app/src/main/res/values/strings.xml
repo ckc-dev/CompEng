@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Prova</string>
+    <string name="tTitulo">Exercício 3</string>
+    <string name="bSair">Sair App</string>
+    <string name="bLimpa">Limpar</string>
+    <string name="bCalc">Gerar Vetor</string>
+    <string name="tRes">Resultado</string>
+</resources>
