@@ -1,4 +1,4 @@
-# Thesis
+# Thesis (web)
 
 This repository was originally created for the web application for our ongoing TCC (Undergraduate Thesis) project. However, due to internal decisions within our institution, the project had to be abandoned. The group was split up, and each member moved on to different institutions.
 
