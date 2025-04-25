@@ -1,4 +1,4 @@
-# [CompEng](https://github.com/ckc-dev/PI-1Phone)
+# [CompEng](https://github.com/ckc-dev/CompEng)
 
 This is a collection for (most of the relevant) projects made for my major in computer engineering.
 
