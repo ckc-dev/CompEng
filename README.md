@@ -46,6 +46,7 @@ Feel free to explore the individual branches for detailed project information, l
 - [Mobile Development: Matrix Multiplication](../../tree/s8-mobile_development-matrix_multiplication)
 - [Mobile Development: Numeric Operations](../../tree/s8-mobile_development-numeric_operations)
 - [Mobile Development: Parity Count](../../tree/s8-mobile_development-parity_count)
+- [Mobile Development: Performance Report](../../tree/s8-mobile_development-performance_report)
 - [Graphics Programming: render.py](../../tree/s8-graphics_programming-renderpy)
 
 ### 9th Semester
