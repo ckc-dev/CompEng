@@ -55,7 +55,8 @@ Feel free to explore the individual branches for detailed project information, l
 
 ### 10th Semester
 
-- [Undergraduate Thesis: Thesis](../../tree/s10-undergraduate_thesis-thesis)
+- [Undergraduate Thesis: Thesis (Abandoned)](../../tree/s10-undergraduate_thesis-thesis)
+- [Undergraduate Thesis: Web (Abandoned)](../../tree/s10-undergraduate_thesis-web)
 
 # Contributing
 
